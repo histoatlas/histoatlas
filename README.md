@@ -19,7 +19,7 @@
 
 ## Overview
 
-HistoAtlas quantifies the tumor microenvironment from H&E-stained whole-slide images across 33 TCGA cancer types (9,000+ slides) and validates findings on CPTAC. Starting from automated cell segmentation, it extracts 38 interpretable histomic features capturing cellular composition, spatial organization, nuclear morphology, and tissue architecture. These features are then systematically tested for associations with gene expression, mutations, copy-number variation, immune subtypes, pathway activity, and patient survival.
+HistoAtlas quantifies the tumor microenvironment from H&E-stained whole-slide images across 21 TCGA cancer types (6,745 slides) and validates findings on 5 CPTAC cancer types (1,095 slides). Starting from automated cell segmentation, it extracts 38 interpretable histomic features capturing cellular composition, spatial organization, nuclear morphology, and tissue architecture. These features are then systematically tested for associations with gene expression, mutations, copy-number variation, immune subtypes, pathway activity, and patient survival.
 
 The project includes:
 
@@ -132,14 +132,13 @@ web/                           # Interactive frontend (Astro + React)
 
 HistoAtlas uses publicly available data from [TCGA](https://portal.gdc.cancer.gov/) and [CPTAC](https://proteomics.cancer.gov/programs/cptac):
 
-| Modality | TCGA | CPTAC |
+| Modality | TCGA (21 cancer types) | CPTAC (5 cancer types) |
 |---|---|---|
-| Histomics | 9,028 slides, 38 features | 1,850 slides, 38 features |
-| Gene expression | 10,071 samples | 1,092 samples |
-| Proteomics | -- | 1,017 samples |
-| Mutations | 9,104 samples (MC3) | -- |
-| CNV | 10,845 samples (GISTIC2) | -- |
-| Clinical/survival | 10,953 patients | 1,850 patients |
+| Histomics | 6,745 slides, 38 features | 1,095 slides, 38 features |
+| Gene expression | 5,877 samples | 559 samples |
+| Proteomics | -- | 817 samples |
+| Mutations | 5,306 samples (MC3) | 331 samples |
+| Clinical/survival | 5,958 patients with OS | 184 patients with OS |
 
 Data download scripts are provided in `scripts/data/`. All scripts pull from public APIs (GDC, Xena, LinkedOmics) and require no authentication.
 
