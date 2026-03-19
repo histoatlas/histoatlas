@@ -1,0 +1,37 @@
+# HistoAtlas Workflow Configuration
+# =================================
+#
+# Usage:
+#   snakemake --cores 4 --config dry_run=true   # Quick test (~5 min)
+#   snakemake --cores 8                          # Full production run
+#
+# Each run writes to a timestamped subfolder (e.g. data/runs/2026-02-23_14-30/).
+# The dry_run flag writes to data/dry_run/<timestamp>/ instead.
+# A "latest" symlink is updated after each run.
+
+# Default: production mode (full data)
+dry_run: false
+
+# Run identifier (auto-generates YYYY-MM-DD_HH-MM if not set)
+run_id: null
+
+# Data directories (relative to project root)
+data_root: "data"
+dry_run_data_root: "data/dry_run"
+runs_dir: "data/runs"
+dry_run_runs_dir: "data/dry_run"
+
+# Dry-run configuration (used when dry_run=true)
+# These values are enforced in scripts via _config.py
+dry_run_config:
+  n_cancer_types: 3
+  n_features: 10
+  max_samples: 500
+  n_genes: 5
+  n_mutations: 3
+  n_pathways: 3
+
+# Dataset selection: "tcga" or "cptac"
+# Override at CLI: snakemake --config dataset=cptac
+# Per-dataset config loaded from workflow/config/datasets/{dataset}.yaml
+dataset: tcga

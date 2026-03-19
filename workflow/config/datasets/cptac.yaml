@@ -1,0 +1,8 @@
+dataset:
+  name: cptac
+  include_pancan: true
+  batch_proxy_column: null
+  in_distribution_cancer_types:
+    - LUAD
+    - BRCA
+    - PAAD

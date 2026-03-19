@@ -1,0 +1,7 @@
+name = "histoatlas"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-03-03"
+
+[[r2_buckets]]
+binding = "ASSETS_BUCKET"
+bucket_name = "histoatlas-assets"

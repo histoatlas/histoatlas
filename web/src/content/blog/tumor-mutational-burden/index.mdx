@@ -1,0 +1,157 @@
+---
+title: "Tumor Mutational Burden: What It Means for Cancer Morphology"
+description: "Explore how tumor mutational burden reshapes tumor morphology and immune infiltration across 21 cancer types — exclusive pan-cancer data from HistoAtlas."
+pubDate: "2026-03-02"
+updatedDate: ""
+keywords:
+  - "tumor mutational burden"
+  - "what is tumor mutational burden"
+  - "high tumor mutational burden"
+  - "tumor mutational burden testing"
+  - "tumor mutational burden range"
+  - "TMB immunotherapy"
+hub: "tumor-mutational-burden"
+author: "Pierre-Antoine Bannier"
+heroImage: "/blog/tmb-thumbnail.svg"
+heroAlt: "Bar chart showing mutation-driven morphological changes across cancer types from HistoAtlas"
+schema:
+  type: "WebPage"
+  about: "Tumor Mutational Burden"
+  dataset: "TCGA Pan-Cancer (21 cancer types)"
+sitemap:
+  priority: 0.9
+  changefreq: "monthly"
+faq:
+  - question: "What is tumor mutational burden?"
+    answer: "Tumor mutational burden (TMB) is the total number of somatic (non-inherited) mutations per megabase of tumor DNA. It is measured by whole-exome sequencing or targeted gene panels such as FoundationOne CDx. TMB-high tumors (≥10 mutations/Mb) generate more neoantigens and are more likely to respond to immune checkpoint inhibitors like pembrolizumab."
+  - question: "Is low tumor mutational burden good?"
+    answer: "Low TMB is not inherently good or bad. Low-TMB tumors typically show less immune infiltration and are less likely to respond to immunotherapy. However, they often have lower proliferation rates and more favorable prognoses in certain cancer types like thyroid carcinoma. The clinical significance depends on the cancer type and therapeutic context."
+---
+
+import Callout from "../../../components/blog/Callout.astro";
+import DataHighlight from "../../../components/blog/DataHighlight.astro";
+import Figure1 from "./figures/Figure1_MutationAssociations_BarChart.tsx";
+import Figure2 from "./figures/Figure2_TmbImmuneEffects_GroupedBar.tsx";
+import Figure3 from "./figures/Figure3_DnaRepairCorrelation_Heatmap.tsx";
+
+Tumor mutational burden varies by more than 100-fold across cancer types — yet a single threshold of 10 mutations per megabase determines whether a patient qualifies for pembrolizumab, regardless of where their tumor originated. HistoAtlas data across 6,745 TCGA samples and 21 cancer types reveals that this molecular metric leaves a measurable imprint on the physical architecture of tumors: their proliferation rate, nuclear shape, and immune landscape.
+
+<Callout type="key-concept">
+  **Tumor Mutational Burden (TMB)**: The total number of somatic (non-inherited)
+  mutations per megabase of tumor DNA. TMB-high tumors (≥10 mut/Mb) are more
+  likely to generate neoantigens — abnormal peptides presented on the cell
+  surface by MHC molecules — that the immune system can recognize as foreign,
+  increasing the probability of response to immunotherapy.
+</Callout>
+
+## What Is Tumor Mutational Burden and Why Does It Matter?
+
+TMB counts the somatic mutations accumulated in a tumor's genome, typically reported as mutations per megabase (mut/Mb). A higher mutation count increases the probability that some mutations will produce neoantigens — abnormal peptides presented on the cell surface — that the immune system can recognize [1].
+
+This logic underpinned the FDA's June 2020 accelerated approval of pembrolizumab for all TMB-high solid tumors (≥10 mut/Mb) — only the fourth time the FDA approved a cancer treatment based on a biomarker rather than the tumor's organ of origin [2]. In the KEYNOTE-158 trial, TMB-high patients showed a 29% overall response rate, with 57% of responses lasting at least 12 months.
+
+But TMB is not a simple on/off switch. Cancer types differ enormously in their baseline mutational rates. Melanoma and lung cancer accumulate mutations from UV exposure and smoking, respectively, while pediatric cancers and, on average, prostate tumors tend to have low TMB. The question for computational pathology is direct: can we _see_ the consequences of high mutational burden in the tissue itself?
+
+### Tumor Mutational Burden Range: What Counts as High or Low?
+
+TMB is a continuous variable, but clinical practice generally divides it into ranges. While exact cutoffs vary by assay and cancer type, a commonly used framework is:
+
+- **Low TMB**: fewer than 6 mut/Mb — typical of thyroid carcinoma, prostate adenocarcinoma, and pediatric cancers
+- **Intermediate TMB**: 6–19 mut/Mb — includes many breast, ovarian, and head and neck cancers
+- **High TMB**: 20 or more mut/Mb — common in melanoma, lung cancers, and MSI-high colorectal cancers
+
+The FDA's pembrolizumab threshold of ≥10 mut/Mb sits within the intermediate range, reflecting a pragmatic cutoff rather than a sharp biological boundary [5].
+
+### Tumor Mutational Burden Testing
+
+TMB is measured through next-generation sequencing of tumor DNA. The two main approaches are whole-exome sequencing (WES), which surveys all protein-coding regions (~30 Mb), and targeted gene panels that sequence a smaller set of cancer-relevant genes (typically 0.8–2.4 Mb) and extrapolate the total burden. The FDA-approved companion diagnostic for pembrolizumab is FoundationOne CDx, a 324-gene panel. Other widely used panels include MSK-IMPACT (468 genes) and TruSight Oncology 500. Panel-based TMB estimates generally correlate well with WES-derived values, though smaller panels can overestimate or underestimate TMB in individual cases [7].
+
+<Callout type="method-note">
+  **TTN as a TMB proxy**: Titin (*TTN*), the largest human gene (363 exons, 34,350 amino acids), is the most frequently mutated gene across TCGA. Its mutation count correlates with whole-exome TMB at rho = 0.917 (p < 2.2 × 10⁻¹⁶) — likely because its enormous size makes it a reliable accumulator of passenger mutations [3]. HistoAtlas uses *TTN* and other frequently mutated genes to quantify how mutational burden associates with tumor morphology.
+</Callout>
+
+## Tumor Mutational Burden Reshapes Morphology Unevenly Across Cancer Types
+
+Not all cancers show equal sensitivity to mutation-associated morphological change. HistoAtlas quantified the number of statistically significant associations between somatic mutations (across 25 frequently mutated genes) and 38 histomic features, for each of the 21 cancer types in the atlas.
+
+<Figure1 client:load />
+
+The ranking is telling. <a href="/tcga/COAD/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">Colorectal adenocarcinoma (COAD)</a> leads with 330 significant associations, followed by <a href="/tcga/STAD/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">stomach adenocarcinoma (STAD, 221)</a> and <a href="/tcga/UCEC/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">uterine endometrial carcinoma (UCEC, 183)</a>. These are precisely the cancer types known for microsatellite instability (MSI) and mismatch repair deficiency — molecular states that drive high TMB [4]. <a href="/tcga/LUAD/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">Lung adenocarcinoma (LUAD)</a>, where smoking-induced mutations dominate, follows with 108.
+
+Below the top four, a sharp drop-off appears. Bladder, head and neck, and rectal cancers show 34–45 associations each. Low-TMB cancers like prostate (PRAD, 21) and thyroid (THCA, 6) show minimal mutation-associated morphological variation — their tissue architecture is shaped by other forces.
+
+This gradient is not simply a sample-size artifact. BRCA has the largest cohort (n=1,037) yet ranks eighth, while COAD (n=441) leads. The signal reflects genuine biology: cancers with higher mutational burden produce more diverse morphological phenotypes.
+
+## High Tumor Mutational Burden Is Associated with Both Proliferation and Immune Infiltration
+
+What exactly changes in a TMB-high tumor's appearance? HistoAtlas compared _TTN_-mutant (TMB-high proxy) versus wild-type tumors across the full pan-cancer cohort (n=5,304) using Cliff's delta effect sizes.
+
+<Figure2 client:visible />
+
+Mitotic index — the density of actively dividing cells — shows the strongest effect <DataHighlight metric="0.316" label="Cliff's d" context="p < 10⁻⁷⁷, n=5,304" />.
+TMB-high tumors show higher mitotic rates. This association likely reflects
+shared upstream biology: defective DNA repair drives both mutation accumulation
+and, when cell-cycle regulators are affected, increased proliferation [5].
+
+But proliferation is only half the story. Six immune infiltration metrics are significantly elevated in TMB-high tumors. Peritumoral immune richness (d = 0.278), intratumoral eosinophil density (d = 0.275), and neutrophil density (d = 0.230) all show moderate effects at extraordinary statistical significance (all p < 10⁻⁴⁰). Intratumoral lymphocyte density — the canonical TIL metric — is also elevated (d = 0.113, p < 10⁻¹⁰), though with a smaller effect than innate immune cells.
+
+<Callout type="clinical-note">
+  The simultaneous elevation of proliferation *and* immune infiltration in
+  TMB-high tumors reflects the broader immune response to genomic instability.
+  Mutation-rich tumors generate neoantigens that can attract T cells, but the
+  stronger effect on innate immune cells (eosinophils, neutrophils) suggests
+  additional mechanisms — such as cGAS-STING activation from cytosolic DNA or
+  damage-associated inflammatory signaling — also contribute [1]. This
+  multi-layered immune engagement is part of what makes TMB-high tumors
+  candidates for checkpoint immunotherapy.
+</Callout>
+
+## DNA Repair Pathway Activity Mirrors the Proliferation–TMB Axis
+
+In rapidly proliferating tumors, DNA repair pathway activity is correspondingly elevated — a natural consequence of increased DNA replication requiring more repair. HistoAtlas's pathway-level Spearman correlations confirm this coupling across cancer types.
+
+<Figure3 client:visible />
+
+The DNA_REPAIR pathway score correlates most strongly with mitotic index — and the magnitude varies by cancer type in a biologically coherent pattern. Lung adenocarcinoma (LUAD) shows the strongest correlation (rho = 0.54, p < 10⁻³, n=437), consistent with LUAD's known proliferative biology. Liver (LIHC, rho = 0.43, n=348) and breast cancer (BRCA, rho = 0.40, n=958) follow. In breast cancer, this is consistent with the high proliferative and mutational burden characteristic of the <a href="/blog/epithelial-mesenchymal-transition-cancer" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">triple-negative subtype</a>. The correlation is significant across all 11 cancer types tested, from LUAD down to LUSC (rho = 0.14).
+
+Beyond mitotic index, tumor pleomorphism shows a more cancer-type-specific pattern: bladder cancer (BLCA, rho = 0.37) and breast cancer (BRCA, rho = 0.29) show the strongest DNA repair–pleomorphism correlations, while cervical and thyroid cancers show near-zero effects. Immune infiltration features show scattered significance across cancer types — notably BRCA for stromal lymphocytes (rho = 0.30) and BLCA for intratumoral lymphocytes (rho = 0.25). These variable patterns confirm that mutational burden leaves morphological signatures, but the specific features affected depend on the cancer type. This may help explain why deep learning models have shown the ability to predict TMB from H&E-stained tissue sections [6], though cross-institutional reproducibility remains an active research challenge.
+
+## What Does "Low Tumor Mutational Burden" Mean for Morphology?
+
+A common clinical question is whether low TMB is "good." The HistoAtlas data provides a nuanced answer. Low-TMB tumors generate fewer neoantigens, resulting in less immune infiltration and generally a reduced likelihood of immunotherapy response — though individual responses vary. But they also show lower mitotic rates and less nuclear irregularity — meaning the tumor grows in a more ordered, less chaotic fashion.
+
+Thyroid carcinoma (THCA) exemplifies this: only 6 significant mutation-morphology associations across all 25 genes and 38 features. These tumors are morphologically homogeneous and genomically quiet — and while they are less likely to respond to checkpoint inhibitors, they also carry a favorable prognosis for most patients.
+
+The clinical takeaway: TMB is not inherently "good" or "bad." It defines a biological axis — from genomically quiet, morphologically uniform tumors to mutation-rich, proliferative, immune-infiltrated tumors — and the optimal therapy depends on where a patient's tumor falls along that axis.
+
+## Explore Tumor Mutational Burden Data on HistoAtlas
+
+The data behind this article is fully interactive on HistoAtlas. Explore <a href="/tcga/PANCAN/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">mutation–morphology associations across all 21 cancer types and 38 histomic features</a> — filter by gene, cancer type, and effect size to identify the strongest signals.
+
+For gene-specific mutation data, visit the individual mutation pages: <a href="/mutations/tp53/" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">_TP53_ mutations</a>, <a href="/mutations/kras/" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">_KRAS_ mutations</a>, <a href="/mutations/braf/" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">_BRAF_ mutations</a>, and <a href="/mutations/egfr/" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">_EGFR_ mutations</a> each show how specific driver mutations associate with tumor architecture. For the specific features discussed in this article, see the pan-cancer data for <a href="/tcga/PANCAN/histomics/mitotic_index_tumor" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">mitotic index</a>, <a href="/tcga/PANCAN/histomics/intratumoral_lymphocyte_density" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">intratumoral lymphocyte density (TILs)</a>, and <a href="/tcga/PANCAN/histomics/tumor_pleomorphism_index" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">nuclear pleomorphism</a>. The <a href="/tcga/PANCAN/atlas" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">HistoAtlas main explorer</a> lets you visualize all 6,745 slides in a UMAP embedding, colored by mutation status, morphology cluster, or any of the 38 histomic features.
+
+For related analysis methods, see our guides to <a href="/blog/gene-set-enrichment-analysis" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">gene set enrichment analysis in cancer</a> and <a href="/blog/copy-number-variation-cancer" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">copy number variation across cancer types</a>.
+
+---
+
+## Frequently Asked Questions
+
+### What is tumor mutational burden?
+
+Tumor mutational burden (TMB) is the total number of somatic (non-inherited) mutations per megabase of tumor DNA. It is measured by whole-exome sequencing or targeted gene panels such as FoundationOne CDx. TMB-high tumors (≥10 mutations/Mb) generate more neoantigens and are more likely to respond to immune checkpoint inhibitors like pembrolizumab [2].
+
+### Is low tumor mutational burden good?
+
+Low TMB is not inherently good or bad. Low-TMB tumors typically show less immune infiltration and are less likely to respond to immunotherapy. However, they often have lower proliferation rates and more favorable prognoses in certain cancer types like thyroid carcinoma. The clinical significance depends on the cancer type and therapeutic context.
+
+---
+
+## References
+
+1. Wu HX et al. [Beyond Tumor Mutation Burden: Tumor Neoantigen Burden as a Biomarker for Immunotherapy and Other Types of Therapy](https://doi.org/10.3389/fonc.2021.672677). _Frontiers in Oncology_, 2021.
+2. Marcus L et al. [FDA Approval Summary: Pembrolizumab for the Treatment of Tumor Mutational Burden–High Solid Tumors](https://doi.org/10.1158/1078-0432.CCR-21-0327). _Clinical Cancer Research_, 2021.
+3. Oh S et al. [Spontaneous mutations in the single TTN gene represent high tumor mutation burden](https://doi.org/10.1038/s41525-019-0107-6). _npj Genomic Medicine_, 2020.
+4. Hause RJ et al. [Classification and characterization of microsatellite instability across 18 cancer types](https://doi.org/10.1038/nm.4191). _Nature Medicine_, 2016.
+5. Chalmers ZR et al. [Analysis of 100,000 human cancer genomes reveals the landscape of tumor mutational burden](https://doi.org/10.1186/s13073-017-0424-2). _Genome Medicine_, 2017.
+6. Jain MS, Massoud TF. [Predicting tumour mutational burden from histopathological images using multiscale deep learning](https://doi.org/10.1038/s42256-020-0190-5). _Nature Machine Intelligence_, 2020.
+7. Merino DM et al. [Establishing guidelines to harmonize tumor mutational burden (TMB): in silico assessment of variation in TMB quantification across diagnostic platforms](https://doi.org/10.1136/jitc-2019-000147). _Journal for ImmunoTherapy of Cancer_, 2020.

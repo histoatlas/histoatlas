@@ -1,0 +1,101 @@
+---
+import { readFileSync } from 'node:fs';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/astro/Breadcrumbs.astro';
+import { SlidePageIsland } from '../../../../islands/SlidePageIsland';
+import { COHORT_FULL_NAMES } from '../../../../data/cohortNames';
+
+const DATASET_CREATORS: Record<string, { name: string }> = {
+  tcga: { name: 'The Cancer Genome Atlas (TCGA)' },
+  cptac: { name: 'Clinical Proteomic Tumor Analysis Consortium (CPTAC)' },
+};
+
+export function getStaticPaths() {
+  const manifest = JSON.parse(readFileSync('public/api/_manifests/datasets.json', 'utf-8'));
+  const paths = [];
+  for (const dataset of Object.keys(manifest)) {
+    try {
+      const slideManifest = JSON.parse(
+        readFileSync(`public/api/${dataset}/_manifests/slide-ids.json`, 'utf-8'),
+      );
+      for (const [cohort, ids] of Object.entries(slideManifest)) {
+        for (const id of (ids as string[])) {
+          paths.push({ params: { dataset, cohort, slideId: id } });
+        }
+      }
+    } catch { /* manifest not available */ }
+  }
+  return paths;
+}
+
+const { dataset, cohort, slideId } = Astro.params;
+const displayCohort = cohort ?? 'PANCAN';
+const cohortFullName = COHORT_FULL_NAMES[displayCohort] ?? displayCohort;
+const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
+const decodedId = slideId ? decodeURIComponent(slideId) : '';
+const truncatedId = decodedId.length > 30 ? decodedId.slice(0, 30) + '\u2026' : decodedId;
+
+// Load slide data at build time for structured data
+let slideData: Record<string, unknown> | null = null;
+try {
+  slideData = JSON.parse(readFileSync(`public/api/${dataset}/slide/${decodedId}.json`, 'utf-8'));
+} catch { /* slide JSON missing — skip structured data */ }
+
+const cancerType = (slideData?.cancerType as string) ?? '';
+const caseId = decodedId.slice(0, 12);
+const tileCount = slideData?.tiles ? Object.values(slideData.tiles as Record<string, unknown[]>).reduce((sum, t) => sum + t.length, 0) : 0;
+const featureCount = slideData?.tiles ? Object.keys(slideData.tiles as Record<string, unknown>).length : 0;
+
+const slideJsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `${cancerType} histopathology slide ${caseId}`,
+    description: `Digitized H&E-stained whole-slide image from ${datasetDisplayName} case ${caseId} (${cancerType}). Includes ${tileCount} representative tiles across ${featureCount} histomic features with AI cell segmentation overlays.`,
+    url: `https://histoatlas.com/${dataset}/${displayCohort}/slide/${encodeURIComponent(decodedId)}/`,
+    license: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    creator: { '@type': 'Organization', name: DATASET_CREATORS[dataset ?? 'tcga']?.name ?? datasetDisplayName },
+    isPartOf: { '@type': 'Dataset', name: 'HistoAtlas', url: 'https://histoatlas.com/' },
+    keywords: [
+      `${cancerType} histopathology`,
+      'whole-slide image',
+      'H&E stain',
+      'cell segmentation',
+      'digital pathology',
+      datasetDisplayName,
+    ],
+    measurementTechnique: 'Whole-slide imaging at 0.5 µm/px with AI-based cell segmentation',
+  },
+];
+---
+
+<BaseLayout
+  title={`${cancerType || displayCohort} Slide ${caseId} — Morphology & Segmentation · ${datasetDisplayName} | HistoAtlas`}
+  description={`Explore ${cancerType} H&E slide ${caseId} from ${datasetDisplayName}: ${tileCount} representative tiles, AI cell segmentation overlays, and quantitative histomic features at 0.5 µm/px resolution.`}
+  canonicalUrl={`/${dataset}/${displayCohort}/slide/${encodeURIComponent(decodedId)}/`}
+  breadcrumbs={[
+    { name: datasetDisplayName, url: `/${dataset}/PANCAN/atlas/` },
+    { name: cohortFullName, url: `/${dataset}/${displayCohort}/atlas/` },
+    { name: decodedId },
+  ]}
+  jsonLd={slideJsonLd}
+>
+  <div class="min-h-screen bg-zinc-50">
+    <!-- White header zone -->
+    <div class="bg-white">
+      <div class="max-w-7xl mx-auto px-6 pt-6 pb-5">
+        <div class="mb-3">
+          <Breadcrumbs items={[
+            { label: datasetDisplayName, href: `/${dataset}/PANCAN/atlas/` },
+            { label: cohortFullName, href: `/${dataset}/${displayCohort}/atlas/` },
+            { label: truncatedId },
+          ]} />
+        </div>
+        <h1 class="text-2xl font-semibold text-zinc-900 truncate" title={decodedId}>{decodedId}</h1>
+      </div>
+    </div>
+
+    <!-- React island: metadata line + all content -->
+    <SlidePageIsland dataset={dataset} slideId={decodedId} cohort={displayCohort} client:only="react" />
+  </div>
+</BaseLayout>

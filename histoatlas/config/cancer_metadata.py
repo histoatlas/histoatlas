@@ -1,0 +1,81 @@
+"""Cancer type metadata including colors and full names."""
+
+# Cancer type colors (colorblind-friendly palette)
+# Based on Tableau 20 and custom modifications
+CANCER_TYPE_COLORS = {
+    "ACC": "#1f77b4",
+    "BLCA": "#ff7f0e",
+    "BRCA": "#2ca02c",
+    "CESC": "#d62728",
+    "CHOL": "#9467bd",
+    "COAD": "#8c564b",
+    "DLBC": "#e377c2",
+    "ESCA": "#7f7f7f",
+    "GBM": "#bcbd22",
+    "HNSC": "#17becf",
+    "KICH": "#aec7e8",
+    "KIRC": "#ffbb78",
+    "KIRP": "#98df8a",
+    "LAML": "#ff9896",
+    "LGG": "#c5b0d5",
+    "LIHC": "#c49c94",
+    "LUAD": "#f7b6d2",
+    "LUSC": "#c7c7c7",
+    "MESO": "#dbdb8d",
+    "OV": "#9edae5",
+    "PAAD": "#393b79",
+    "PCPG": "#5254a3",
+    "PRAD": "#6b6ecf",
+    "READ": "#9c9ede",
+    "SARC": "#637939",
+    "SKCM": "#8ca252",
+    "STAD": "#b5cf6b",
+    "TGCT": "#cedb9c",
+    "THCA": "#8c6d31",
+    "THYM": "#bd9e39",
+    "UCEC": "#e7ba52",
+    "UCS": "#e7cb94",
+    "UVM": "#843c39",
+}
+
+# Full names for cancer type abbreviations
+CANCER_FULL_NAMES = {
+    "ACC": "Adrenocortical Carcinoma",
+    "BLCA": "Bladder Urothelial Carcinoma",
+    "BRCA": "Breast Invasive Carcinoma",
+    "CESC": "Cervical Squamous Cell Carcinoma",
+    "CHOL": "Cholangiocarcinoma",
+    "COAD": "Colon Adenocarcinoma",
+    "DLBC": "Diffuse Large B-cell Lymphoma",
+    "ESCA": "Esophageal Carcinoma",
+    "GBM": "Glioblastoma Multiforme",
+    "HNSC": "Head and Neck Squamous Cell Carcinoma",
+    "KICH": "Kidney Chromophobe",
+    "KIRC": "Kidney Renal Clear Cell Carcinoma",
+    "KIRP": "Kidney Renal Papillary Cell Carcinoma",
+    "LAML": "Acute Myeloid Leukemia",
+    "LGG": "Brain Lower Grade Glioma",
+    "LIHC": "Liver Hepatocellular Carcinoma",
+    "LUAD": "Lung Adenocarcinoma",
+    "LUSC": "Lung Squamous Cell Carcinoma",
+    "MESO": "Mesothelioma",
+    "OV": "Ovarian Serous Cystadenocarcinoma",
+    "PAAD": "Pancreatic Adenocarcinoma",
+    "PCPG": "Pheochromocytoma and Paraganglioma",
+    "PRAD": "Prostate Adenocarcinoma",
+    "READ": "Rectum Adenocarcinoma",
+    "SARC": "Sarcoma",
+    "SKCM": "Skin Cutaneous Melanoma",
+    "STAD": "Stomach Adenocarcinoma",
+    "TGCT": "Testicular Germ Cell Tumors",
+    "THCA": "Thyroid Carcinoma",
+    "THYM": "Thymoma",
+    "UCEC": "Uterine Corpus Endometrial Carcinoma",
+    "UCS": "Uterine Carcinosarcoma",
+    "UVM": "Uveal Melanoma",
+}
+
+
+def get_cancer_full_name(cancer_type: str) -> str:
+    """Get full name for cancer type abbreviation."""
+    return CANCER_FULL_NAMES.get(cancer_type, cancer_type)

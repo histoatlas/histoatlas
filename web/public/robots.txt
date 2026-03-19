@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block non-content paths (JSON data files)
+Disallow: /api/
+
+Sitemap: https://histoatlas.com/sitemap.xml

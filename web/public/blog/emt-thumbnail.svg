@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#FAFBFC"/>
+
+  <!-- Gradient mesh: epithelial (structured, blue-green) to mesenchymal (scattered, purple-pink) -->
+  <defs>
+    <linearGradient id="emtGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="35%" stop-color="#34D399"/>
+      <stop offset="65%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Epithelial side: organized hexagonal cells -->
+  <circle cx="60" cy="100" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="60" cy="150" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="60" cy="200" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="60" cy="250" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="60" cy="300" r="22" fill="#6EE7B7" opacity="0.7"/>
+
+  <circle cx="105" cy="125" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="105" cy="175" r="22" fill="#6EE7B7" opacity="0.7"/>
+  <circle cx="105" cy="225" r="22" fill="#34D399" opacity="0.7"/>
+  <circle cx="105" cy="275" r="22" fill="#34D399" opacity="0.7"/>
+
+  <circle cx="150" cy="100" r="22" fill="#34D399" opacity="0.7"/>
+  <circle cx="150" cy="150" r="22" fill="#34D399" opacity="0.7"/>
+  <circle cx="150" cy="200" r="22" fill="#34D399" opacity="0.7"/>
+  <circle cx="150" cy="250" r="22" fill="#34D399" opacity="0.7"/>
+  <circle cx="150" cy="300" r="22" fill="#34D399" opacity="0.7"/>
+
+  <!-- Transition zone: loosening structure -->
+  <circle cx="210" cy="110" r="20" fill="#34D399" opacity="0.6"/>
+  <circle cx="220" cy="170" r="19" fill="#6EE7B7" opacity="0.5"/>
+  <circle cx="205" cy="230" r="21" fill="#A78BFA" opacity="0.5"/>
+  <circle cx="215" cy="290" r="18" fill="#A78BFA" opacity="0.6"/>
+
+  <circle cx="270" cy="90" r="18" fill="#A78BFA" opacity="0.5"/>
+  <circle cx="280" cy="155" r="17" fill="#A78BFA" opacity="0.6"/>
+  <circle cx="265" cy="215" r="19" fill="#A78BFA" opacity="0.6"/>
+  <circle cx="275" cy="280" r="16" fill="#C084FC" opacity="0.6"/>
+  <circle cx="260" cy="340" r="15" fill="#C084FC" opacity="0.5"/>
+
+  <!-- Mesenchymal side: scattered, elongated, irregular -->
+  <ellipse cx="340" cy="80" rx="24" ry="12" fill="#C084FC" opacity="0.6" transform="rotate(-20 340 80)"/>
+  <ellipse cx="360" cy="150" rx="22" ry="10" fill="#C084FC" opacity="0.7" transform="rotate(15 360 150)"/>
+  <ellipse cx="330" cy="220" rx="26" ry="11" fill="#E879F9" opacity="0.6" transform="rotate(-10 330 220)"/>
+  <ellipse cx="350" cy="290" rx="20" ry="9" fill="#F472B6" opacity="0.6" transform="rotate(25 350 290)"/>
+  <ellipse cx="340" cy="350" rx="23" ry="10" fill="#F472B6" opacity="0.5" transform="rotate(-15 340 350)"/>
+
+  <ellipse cx="420" cy="110" rx="25" ry="10" fill="#E879F9" opacity="0.6" transform="rotate(30 420 110)"/>
+  <ellipse cx="410" cy="180" rx="22" ry="11" fill="#F472B6" opacity="0.7" transform="rotate(-25 410 180)"/>
+  <ellipse cx="430" cy="250" rx="24" ry="9" fill="#F472B6" opacity="0.6" transform="rotate(10 430 250)"/>
+  <ellipse cx="415" cy="320" rx="20" ry="10" fill="#F472B6" opacity="0.5" transform="rotate(-20 415 320)"/>
+
+  <ellipse cx="500" cy="90" rx="22" ry="9" fill="#F472B6" opacity="0.5" transform="rotate(20 500 90)"/>
+  <ellipse cx="490" cy="160" rx="24" ry="10" fill="#F472B6" opacity="0.6" transform="rotate(-15 490 160)"/>
+  <ellipse cx="510" cy="230" rx="20" ry="11" fill="#FB7185" opacity="0.6" transform="rotate(35 510 230)"/>
+  <ellipse cx="495" cy="300" rx="23" ry="9" fill="#FB7185" opacity="0.5" transform="rotate(-10 495 300)"/>
+
+  <!-- Directional arrow -->
+  <line x1="80" y1="370" x2="520" y2="370" stroke="#A1A1AA" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <polygon points="520,365 535,370 520,375" fill="#A1A1AA"/>
+</svg>

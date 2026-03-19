@@ -1,0 +1,75 @@
+---
+import { readFileSync } from 'node:fs';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/astro/Breadcrumbs.astro';
+import { ClusterPageIsland } from '../../../../islands/ClusterPageIsland';
+import { COHORT_FULL_NAMES } from '../../../../data/cohortNames';
+
+export function getStaticPaths() {
+  const manifest = JSON.parse(readFileSync('public/api/_manifests/datasets.json', 'utf-8'));
+  const paths = [];
+  for (const dataset of Object.keys(manifest)) {
+    try {
+      const clusterManifest = JSON.parse(
+        readFileSync(`public/api/${dataset}/_manifests/cluster-ids.json`, 'utf-8'),
+      );
+      for (const [cohort, ids] of Object.entries(clusterManifest)) {
+        for (const id of (ids as string[])) {
+          paths.push({ params: { dataset, cohort, clusterId: id } });
+        }
+      }
+    } catch { /* manifest not available */ }
+  }
+  return paths;
+}
+
+const { dataset, cohort, clusterId } = Astro.params;
+const displayCohort = cohort ?? 'PANCAN';
+const cohortFullName = COHORT_FULL_NAMES[displayCohort] ?? displayCohort;
+const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
+const decodedId = clusterId ? decodeURIComponent(clusterId) : '';
+---
+
+<BaseLayout
+  title={`Cluster ${decodedId} — ${cohortFullName} · ${datasetDisplayName} · HistoAtlas`}
+  description={`Cluster-level phenotype view for cluster ${decodedId} in the ${datasetDisplayName} ${cohortFullName} (${displayCohort}) cohort.`}
+  canonicalUrl={`/${dataset}/${displayCohort}/cluster/${encodeURIComponent(decodedId)}/`}
+  breadcrumbs={[
+    { name: datasetDisplayName, url: `/${dataset}/PANCAN/atlas/` },
+    { name: cohortFullName, url: `/${dataset}/${displayCohort}/atlas/` },
+    { name: 'Clusters', url: `/${dataset}/${displayCohort}/cluster/` },
+    { name: `Cluster ${decodedId}` },
+  ]}
+>
+  <div class="min-h-screen bg-zinc-50">
+    <!-- White header zone -->
+    <div class="bg-white">
+      <div class="max-w-7xl mx-auto px-6 pt-6">
+        <Breadcrumbs items={[
+          { label: datasetDisplayName, href: `/${dataset}/PANCAN/atlas/` },
+          { label: cohortFullName, href: `/${dataset}/${displayCohort}/atlas/` },
+          { label: 'Clusters', href: `/${dataset}/${displayCohort}/cluster/` },
+          { label: `Cluster ${decodedId}` },
+        ]} />
+      </div>
+    </div>
+
+    <!-- SSR header with portal slots for React interactive widgets -->
+    <div class="bg-white border-b border-zinc-200">
+      <div class="max-w-7xl mx-auto px-6 pt-3 pb-5">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <h1 class="text-2xl font-semibold text-zinc-900">Cluster {decodedId}</h1>
+            <p class="text-sm text-zinc-500 mt-1">Cluster-level phenotype view for the {datasetDisplayName} {cohortFullName} cohort.</p>
+          </div>
+          <div id="cohort-selector-slot" class="hidden md:block pt-1" style="min-width:180px;min-height:36px;"></div>
+        </div>
+        <div id="cluster-badges-slot"></div>
+      </div>
+      <div id="tab-nav-slot"></div>
+    </div>
+
+    <!-- React island: header + tab bar + content -->
+    <ClusterPageIsland dataset={dataset} clusterId={decodedId} cohort={displayCohort} client:only="react" />
+  </div>
+</BaseLayout>

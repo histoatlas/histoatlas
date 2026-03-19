@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#FAFBFC"/>
+
+  <!-- Heatmap grid: 8 columns x 6 rows with diverging coral-teal palette -->
+  <!-- Row 1 -->
+  <rect x="60" y="60" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="125" y="60" width="60" height="45" rx="3" fill="#C8DFE8"/>
+  <rect x="190" y="60" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="255" y="60" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="320" y="60" width="60" height="45" rx="3" fill="#F0A990"/>
+  <rect x="385" y="60" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="450" y="60" width="60" height="45" rx="3" fill="#F7D6C8"/>
+
+  <!-- Row 2 -->
+  <rect x="60" y="110" width="60" height="45" rx="3" fill="#F0A990"/>
+  <rect x="125" y="110" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="190" y="110" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="255" y="110" width="60" height="45" rx="3" fill="#F7D6C8"/>
+  <rect x="320" y="110" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="385" y="110" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="450" y="110" width="60" height="45" rx="3" fill="#C8DFE8"/>
+
+  <!-- Row 3 -->
+  <rect x="60" y="160" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="125" y="160" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="190" y="160" width="60" height="45" rx="3" fill="#F7F7F7"/>
+  <rect x="255" y="160" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="320" y="160" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="385" y="160" width="60" height="45" rx="3" fill="#F7D6C8"/>
+  <rect x="450" y="160" width="60" height="45" rx="3" fill="#1B4965"/>
+
+  <!-- Row 4 -->
+  <rect x="60" y="210" width="60" height="45" rx="3" fill="#C8DFE8"/>
+  <rect x="125" y="210" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="190" y="210" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="255" y="210" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="320" y="210" width="60" height="45" rx="3" fill="#F7F7F7"/>
+  <rect x="385" y="210" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="450" y="210" width="60" height="45" rx="3" fill="#F0A990"/>
+
+  <!-- Row 5 -->
+  <rect x="60" y="260" width="60" height="45" rx="3" fill="#F7D6C8"/>
+  <rect x="125" y="260" width="60" height="45" rx="3" fill="#F7F7F7"/>
+  <rect x="190" y="260" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="255" y="260" width="60" height="45" rx="3" fill="#C8DFE8"/>
+  <rect x="320" y="260" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="385" y="260" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="450" y="260" width="60" height="45" rx="3" fill="#F7D6C8"/>
+
+  <!-- Row 6 -->
+  <rect x="60" y="310" width="60" height="45" rx="3" fill="#E07A5F"/>
+  <rect x="125" y="310" width="60" height="45" rx="3" fill="#62B6CB"/>
+  <rect x="190" y="310" width="60" height="45" rx="3" fill="#C8DFE8"/>
+  <rect x="255" y="310" width="60" height="45" rx="3" fill="#F0A990"/>
+  <rect x="320" y="310" width="60" height="45" rx="3" fill="#1B4965"/>
+  <rect x="385" y="310" width="60" height="45" rx="3" fill="#F7F7F7"/>
+  <rect x="450" y="310" width="60" height="45" rx="3" fill="#E07A5F"/>
+
+  <!-- Color legend bar on the right -->
+  <defs>
+    <linearGradient id="lg" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#E07A5F"/>
+      <stop offset="50%" stop-color="#F7F7F7"/>
+      <stop offset="100%" stop-color="#1B4965"/>
+    </linearGradient>
+  </defs>
+  <rect x="540" y="100" width="16" height="200" rx="8" fill="url(#lg)"/>
+</svg>

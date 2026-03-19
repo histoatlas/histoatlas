@@ -1,0 +1,140 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: string;
+  updatedDate?: string;
+  keywords: string[];
+  hub: string | null;
+  author: string;
+  heroAlt: string;
+  schema: {
+    type: 'Article' | 'WebPage';
+    about: string;
+    dataset?: string;
+  };
+  faq?: FaqItem[];
+  slug: string;
+}
+
+const SITE_ORIGIN = 'https://histoatlas.com';
+
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  keywords,
+  hub,
+  author,
+  heroAlt,
+  schema,
+  faq,
+  slug,
+} = Astro.props;
+
+const canonicalUrl = `/blog/${slug}/`;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': schema.type,
+  headline: title,
+  description,
+  datePublished: pubDate,
+  dateModified: updatedDate || pubDate,
+  author: {
+    '@type': 'Organization',
+    name: 'HistoAtlas',
+    url: SITE_ORIGIN,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'HistoAtlas',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_ORIGIN}/favicon.svg`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `${SITE_ORIGIN}${canonicalUrl}`,
+  },
+  about: {
+    '@type': 'Thing',
+    name: schema.about,
+  },
+  keywords: keywords.join(', '),
+};
+
+const faqJsonLd = faq && faq.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    }
+  : null;
+
+const jsonLdItems = [articleJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])];
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  ...(hub ? [{ name: hub.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()), url: `/blog/${hub}/` }] : []),
+  { name: title },
+];
+
+const displayDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${title} | HistoAtlas`}
+  description={description}
+  canonicalUrl={canonicalUrl}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="article"
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLdItems}
+>
+  <div class="bg-white border-b border-zinc-200">
+    <div class="max-w-3xl mx-auto px-6 pt-6 pb-8">
+      <nav class="flex items-center gap-1.5 text-sm text-zinc-500 mb-6">
+        <a href="/blog/" class="hover:text-zinc-700 transition-colors">Blog</a>
+        <span class="text-zinc-300">/</span>
+        <span class="text-zinc-900 font-medium truncate">{title}</span>
+      </nav>
+      <h1 class="text-3xl font-semibold text-zinc-900 leading-tight mb-3">
+        {title}
+      </h1>
+      <div class="flex items-center gap-3 text-sm text-zinc-500">
+        <span>{author}</span>
+        <span class="text-zinc-300">·</span>
+        <time datetime={pubDate}>{displayDate}</time>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-3xl mx-auto px-6 py-8">
+    <article class="prose max-w-none">
+      <slot />
+    </article>
+  </main>
+</BaseLayout>

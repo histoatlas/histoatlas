@@ -1,0 +1,57 @@
+---
+import { readFileSync } from 'node:fs';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/astro/Breadcrumbs.astro';
+import { ClusterTableIsland } from '../../../../islands/ClusterTableIsland';
+import { COHORT_FULL_NAMES } from '../../../../data/cohortNames';
+
+export function getStaticPaths() {
+  const manifest = JSON.parse(readFileSync('public/api/_manifests/datasets.json', 'utf-8'));
+  const paths = [];
+  for (const [dataset, info] of Object.entries(manifest)) {
+    for (const cohort of (info as any).cancerTypes) {
+      paths.push({ params: { dataset, cohort } });
+    }
+  }
+  return paths;
+}
+
+const { dataset, cohort } = Astro.params;
+const displayCohort = cohort ?? 'PANCAN';
+const cohortFullName = COHORT_FULL_NAMES[displayCohort] ?? displayCohort;
+const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
+---
+
+<BaseLayout
+  title={`${cohortFullName} Clusters — ${datasetDisplayName} · HistoAtlas`}
+  description={`Browse morphological clusters for the ${datasetDisplayName} ${cohortFullName} (${displayCohort}) cohort.`}
+  canonicalUrl={`/${dataset}/${displayCohort}/cluster/`}
+  breadcrumbs={[
+    { name: datasetDisplayName, url: `/${dataset}/PANCAN/atlas/` },
+    { name: cohortFullName, url: `/${dataset}/${displayCohort}/atlas/` },
+    { name: 'Clusters' },
+  ]}
+>
+  <div class="min-h-screen bg-zinc-50">
+    <!-- White header zone -->
+    <div class="bg-white border-b border-zinc-200">
+      <div class="max-w-7xl mx-auto px-6 pt-6">
+        <Breadcrumbs items={[{ label: datasetDisplayName, href: `/${dataset}/PANCAN/atlas/` }, { label: cohortFullName, href: `/${dataset}/${displayCohort}/atlas/` }, { label: 'Clusters' }]} />
+      </div>
+      <div class="max-w-7xl mx-auto px-6 pt-6 pb-5">
+        <h1 class="text-2xl font-semibold text-zinc-900 flex items-center gap-2">
+          <svg class="text-zinc-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.5"/><path d="m10.2 6.3-3.9 3.9"/><circle cx="4.5" cy="12" r="2.5"/><path d="M7 12h10"/><circle cx="19.5" cy="12" r="2.5"/><path d="m13.8 17.7 3.9-3.9"/><circle cx="12" cy="19.5" r="2.5"/></svg>
+          Clusters
+        </h1>
+        <p class="mt-1 text-sm text-zinc-500">
+          Morphological clusters identified by unsupervised learning
+        </p>
+      </div>
+    </div>
+
+    <!-- Content zone -->
+    <main class="max-w-7xl mx-auto px-6 py-6">
+      <ClusterTableIsland dataset={dataset} cohort={displayCohort} client:only="react" />
+    </main>
+  </div>
+</BaseLayout>

@@ -1,0 +1,20 @@
+# Astro build assets (content-hashed filenames → safe to cache forever)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static API JSON (data changes only on deploy, auto-purged by Cloudflare Pages)
+/api/*
+  Cache-Control: public, max-age=86400
+  Cloudflare-CDN-Cache-Control: public, max-age=31536000
+  Access-Control-Allow-Origin: *
+
+# OG images (one per route, change only on deploy)
+/og/*
+  Cache-Control: public, max-age=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=31536000
+
+# HTML pages (change only on deploy, auto-purged by Cloudflare Pages)
+# Browser must revalidate (so users see fresh content after deploys)
+# Edge caches aggressively (auto-purged on deploy)
+/*
+  Cloudflare-CDN-Cache-Control: public, max-age=31536000

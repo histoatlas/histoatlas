@@ -1,0 +1,113 @@
+---
+import '../index.css';
+import { FooterIsland } from '../islands/FooterIsland';
+import { GlobalNavIsland } from '../islands/GlobalNavIsland';
+import { SelectionContextBarIsland } from '../islands/SelectionContextBarIsland';
+
+interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
+  jsonLd?: Record<string, unknown>[];
+}
+
+const SITE_ORIGIN = 'https://histoatlas.com';
+
+const {
+  title = 'HistoAtlas',
+  description = 'Interactive morphology atlas linking histomics to molecular and clinical variables.',
+  canonicalUrl,
+  ogTitle,
+  ogDescription,
+  ogImage = '/og-default.png',
+  ogType = 'website',
+  noindex = false,
+  breadcrumbs,
+  jsonLd = [],
+} = Astro.props;
+
+// Extract dataset and cohort from URL path server-side
+const pathMatch = Astro.url.pathname.match(/^\/([a-z][a-z0-9]*)\/([A-Z][A-Z0-9]+)\//);
+const dataset = pathMatch ? pathMatch[1] : 'tcga';
+const cohort = pathMatch ? pathMatch[2] : 'PANCAN';
+
+// Compute absolute canonical URL
+const absoluteCanonical = canonicalUrl
+  ? `${SITE_ORIGIN}${canonicalUrl}`
+  : `${SITE_ORIGIN}${Astro.url.pathname}`;
+
+const absoluteOgImage = `${SITE_ORIGIN}${ogImage}`;
+
+const resolvedOgTitle = ogTitle ?? title;
+const resolvedOgDescription = ogDescription ?? description;
+
+// Build JSON-LD BreadcrumbList when breadcrumbs are provided
+const breadcrumbJsonLd = breadcrumbs
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        ...(item.url ? { item: `${SITE_ORIGIN}${item.url}` } : {}),
+      })),
+    })
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+
+    <link rel="canonical" href={absoluteCanonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={resolvedOgTitle} />
+    <meta property="og:description" content={resolvedOgDescription} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={absoluteCanonical} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:site_name" content="HistoAtlas" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@el_pa_b" />
+    <meta name="twitter:title" content={resolvedOgTitle} />
+    <meta name="twitter:description" content={resolvedOgDescription} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <meta name="theme-color" content="#18181b" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {breadcrumbJsonLd && <script type="application/ld+json" set:html={breadcrumbJsonLd} />}
+    {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+  </head>
+  <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:bg-white focus:text-zinc-900 focus:px-4 focus:py-2">Skip to main content</a>
+    <div class="flex flex-col min-h-screen bg-zinc-50">
+      <GlobalNavIsland dataset={dataset} cohort={cohort} client:idle />
+      <SelectionContextBarIsland client:visible />
+      <main class="flex-1" id="main-content">
+        <slot />
+      </main>
+      <FooterIsland client:visible />
+    </div>
+  </body>
+</html>

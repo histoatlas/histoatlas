@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#FAFBFC"/>
+
+  <!-- Bar chart: mutation burden bars in warm palette -->
+  <rect x="50" y="280" width="40" height="80" rx="4" fill="#FDE68A"/>
+  <rect x="100" y="200" width="40" height="160" rx="4" fill="#FCD34D"/>
+  <rect x="150" y="240" width="40" height="120" rx="4" fill="#FBBF24"/>
+  <rect x="200" y="100" width="40" height="260" rx="4" fill="#F59E0B"/>
+  <rect x="250" y="160" width="40" height="200" rx="4" fill="#D97706"/>
+  <rect x="300" y="60" width="40" height="300" rx="4" fill="#B45309"/>
+  <rect x="350" y="140" width="40" height="220" rx="4" fill="#92400E"/>
+  <rect x="400" y="220" width="40" height="140" rx="4" fill="#D97706"/>
+  <rect x="450" y="180" width="40" height="180" rx="4" fill="#F59E0B"/>
+  <rect x="500" y="260" width="40" height="100" rx="4" fill="#FBBF24"/>
+
+  <!-- Significance stars -->
+  <circle cx="220" cy="85" r="5" fill="#DC2626"/>
+  <circle cx="320" cy="45" r="5" fill="#DC2626"/>
+  <circle cx="370" cy="125" r="5" fill="#DC2626"/>
+
+  <!-- Baseline -->
+  <line x1="40" y1="360" x2="555" y2="360" stroke="#D4D4D8" stroke-width="1.5"/>
+</svg>

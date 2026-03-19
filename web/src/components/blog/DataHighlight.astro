@@ -1,0 +1,34 @@
+---
+interface Props {
+  metric: string;
+  label: string;
+  context: string;
+}
+
+const { metric, label, context } = Astro.props;
+---
+
+<span
+  style="
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    background: #F0F9FC;
+    border: 1px solid #D0E8EF;
+    border-radius: 6px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    white-space: nowrap;
+  "
+>
+  <strong style="color: #1B4965; font-size: 1.05em; font-variant-numeric: tabular-nums;">
+    {metric}
+  </strong>
+  <span style="color: #5A6B7A; font-size: 0.85em;">
+    {label}
+  </span>
+</span>
+<span style="font-size: 0.85em; color: #6B7280; margin-left: 0.15rem;">
+  ({context})
+</span>

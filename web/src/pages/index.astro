@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CohortListingIsland } from '../islands/CohortListingIsland';
+---
+
+<BaseLayout
+  title="HistoAtlas: Morphology Atlas for Cancer Histopathology | TCGA & CPTAC"
+  description="Explore tissue morphology across TCGA and CPTAC cancer cohorts. Interactive UMAP embeddings, survival associations, molecular correlations, and AI cell segmentation for 11,000+ whole-slide images."
+  canonicalUrl="/"
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'HistoAtlas',
+      url: 'https://histoatlas.com/',
+      description: 'Interactive morphology atlas linking computational histopathology features to molecular and clinical variables across TCGA and CPTAC cancer cohorts.',
+      applicationCategory: 'Science',
+      operatingSystem: 'Web',
+      creator: { '@type': 'Organization', name: 'HistoAtlas' },
+    },
+  ]}
+>
+  <!-- SSR H1 for crawlers (React island below renders the full interactive UI) -->
+  <div class="sr-only">
+    <h1>HistoAtlas: Cancer Morphology Atlas</h1>
+    <p>Browse TCGA and CPTAC cancer cohorts with interactive UMAP embeddings, survival analysis, and molecular correlations.</p>
+  </div>
+  <CohortListingIsland client:only="react" />
+</BaseLayout>

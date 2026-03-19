@@ -1,0 +1,291 @@
+"""
+HistoAtlas Workflow Orchestration
+=================================
+
+Snakemake DAG-based pipeline for computing all HistoAtlas analyses.
+
+Usage:
+    # Preview what would run (no execution)
+    snakemake -n --snakefile workflow/Snakefile
+
+    # Dry-run mode (~5 min, subset data)
+    snakemake --cores 4 --config dry_run=true --snakefile workflow/Snakefile
+
+    # Production mode (full data)
+    snakemake --cores 8 --snakefile workflow/Snakefile
+
+    # Resume or re-run a specific timestamped run
+    snakemake --cores 8 --config run_id=2026-02-23_14-30 --snakefile workflow/Snakefile
+
+    # Visualize DAG
+    snakemake --dag --snakefile workflow/Snakefile | dot -Tpng > dag.png
+
+Each run creates a timestamped folder under data/runs/ (or data/dry_run/
+for dry runs). Immutable inputs from data/ are symlinked into each run
+folder. A data/latest symlink always points to the most recent run.
+
+DAG Structure:
+    slide_level_features.parquet
+                │
+        ┌───────┼──────────────────────────────────┐
+        ▼       ▼                                  ▼
+    compute_embeddings (T1)    flag_ratio_artifacts, flag_tissue_cell_discordance
+        │                                    (T1, parallel)
+        │
+        ├───────┬───────┬───────────┬──────────────────────────────────┐
+        ▼       ▼       ▼           ▼                                  ▼
+    qc_flags  similar  tiles     survival, molecular, batch,       feature_redundancy,
+      (T2)    slides             treatment (T3)                    per_cancer_dist,
+                │       │           │                              variance_decomp,
+                └───────┴───────────┘                              data_completeness,
+                        │                                          segmentation_quality
+                ┌───────┴───────┐                                    (T3.5)
+                ▼               ▼
+              rmst            gsea (T4)
+                │
+                ├─── bh_sensitivity, null_model, endpoint_concordance,
+                │    ood_sensitivity, feature_reliability_tiers (T4)
+                ▼
+              mdes (T5)
+                │
+        ┌───────┴───────┐
+        ▼               ▼
+    frontend_json    polish_artifacts (T6)
+                │
+                ▼
+           validation
+"""
+
+import os
+from datetime import datetime
+from pathlib import Path
+
+import yaml
+
+# =============================================================================
+# Configuration
+# =============================================================================
+
+configfile: "workflow/config/config.yaml"
+
+# Generate run ID (timestamp or user-provided)
+RUN_ID = config.get("run_id") or datetime.now().strftime("%Y-%m-%d_%H-%M")
+
+# ---------------------------------------------------------------------------
+# Dataset resolution
+# ---------------------------------------------------------------------------
+DATASET_NAME = config.get("dataset", "tcga")
+if isinstance(DATASET_NAME, dict):
+    # Backward compat: old inline dict config
+    DATASET_NAME = DATASET_NAME.get("name", "tcga")
+
+_dataset_config_path = Path("workflow/config/datasets") / f"{DATASET_NAME}.yaml"
+if not _dataset_config_path.exists():
+    raise ValueError(
+        f"Unknown dataset '{DATASET_NAME}'. "
+        f"Expected config at {_dataset_config_path}. "
+        f"Available: tcga, cptac"
+    )
+with open(_dataset_config_path) as f:
+    _dataset_preset = yaml.safe_load(f) or {}
+
+# Immutable inputs live under data/datasets/<name>/
+INPUT_ROOT = Path("data/datasets") / DATASET_NAME
+if not INPUT_ROOT.exists():
+    raise FileNotFoundError(
+        f"Dataset directory {INPUT_ROOT} not found. "
+        f"Run: uv run python scripts/data/setup_dataset_dirs.py"
+    )
+
+print(f"[Snakemake] Dataset: {DATASET_NAME} (inputs from {INPUT_ROOT})")
+
+# Determine data root based on dry_run flag
+if config.get("dry_run", False):
+    DATA_ROOT = Path(config.get("dry_run_runs_dir", "data/dry_run")) / RUN_ID
+    LATEST_LINK = Path(config.get("dry_run_runs_dir", "data/dry_run")) / "latest"
+    print(f"[Snakemake] DRY-RUN MODE: outputs -> {DATA_ROOT}")
+else:
+    DATA_ROOT = Path(config.get("runs_dir", "data/runs")) / RUN_ID
+    LATEST_LINK = Path("data") / "latest"
+    print(f"[Snakemake] PRODUCTION MODE: outputs -> {DATA_ROOT}")
+
+print(f"[Snakemake] Run ID: {RUN_ID}")
+
+# Create run directory and symlink immutable inputs
+DATA_ROOT.mkdir(parents=True, exist_ok=True)
+
+_INPUT_FILES = [
+    "slide_level_features.parquet",
+    "tile_level_features.parquet",
+    "representative_tiles",
+    "immune_subtypes.xlsx",
+]
+_INPUT_DIRS = [
+    Path("processed") / "molecular",
+]
+
+for name in _INPUT_FILES:
+    source = INPUT_ROOT / name
+    target = DATA_ROOT / name
+    if source.exists() and not target.exists():
+        target.symlink_to(source.resolve())
+
+for rel_path in _INPUT_DIRS:
+    source = INPUT_ROOT / rel_path
+    target = DATA_ROOT / rel_path
+    if source.exists() and not target.exists():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.symlink_to(source.resolve())
+
+# Update `latest` symlink (relative target for portability)
+if LATEST_LINK.is_symlink():
+    LATEST_LINK.unlink()
+elif LATEST_LINK.exists():
+    LATEST_LINK.unlink()
+
+# Compute relative path from latest link's parent to the run directory
+_relative_target = os.path.relpath(DATA_ROOT, LATEST_LINK.parent)
+LATEST_LINK.symlink_to(_relative_target)
+
+# Set environment variable for all shell commands
+os.environ["HISTOATLAS_DATA_ROOT"] = str(DATA_ROOT.resolve())
+
+# Propagate dataset configuration via environment variables
+_dataset_cfg = _dataset_preset.get("dataset", {})
+os.environ["HISTOATLAS_DATASET"] = DATASET_NAME
+os.environ["HISTOATLAS_INCLUDE_PANCAN"] = str(_dataset_cfg.get("include_pancan", True)).lower()
+os.environ["HISTOATLAS_BATCH_PROXY_COLUMN"] = _dataset_cfg.get("batch_proxy_column") or ""
+_id_types = _dataset_cfg.get("in_distribution_cancer_types") or []
+os.environ["HISTOATLAS_IN_DISTRIBUTION_TYPES"] = ",".join(_id_types) if _id_types else ""
+
+# Define paths
+PARQUET_DIR = DATA_ROOT / "parquet"
+CLUSTERING_DIR = PARQUET_DIR / "clustering"
+CLUSTER_ANALYSES_DIR = PARQUET_DIR / "cluster_analyses"
+PRECOMPUTED_STATS_DIR = PARQUET_DIR / "precomputed_stats"
+QC_DIR = PARQUET_DIR / "qc"
+SUPPLEMENTARY_DIR = PARQUET_DIR / "supplementary"
+JSON_DIR = DATA_ROOT / "json"
+VALIDATION_DIR = DATA_ROOT / "validation"
+
+# Input files (read-only, from external pipelines)
+SLIDE_LEVEL_FEATURES_INPUT = DATA_ROOT / "slide_level_features.parquet"
+
+# =============================================================================
+# Include rule modules
+# =============================================================================
+
+include: "rules/embeddings.smk"
+include: "rules/features.smk"
+include: "rules/associations.smk"
+include: "rules/enrichments.smk"
+include: "rules/meta.smk"
+include: "rules/qc.smk"
+include: "rules/supplementary.smk"
+include: "rules/export.smk"
+include: "rules/validation.smk"
+
+# =============================================================================
+# Target rules
+# =============================================================================
+
+rule all:
+    """Run full pipeline including validation."""
+    input:
+        # Tier 1: Embeddings
+        PARQUET_DIR / "slide_histomics.parquet",
+        # Tier 1 (parallel): QC flags on raw features
+        QC_DIR / "ratio_artifacts.parquet",
+        QC_DIR / "tissue_cell_discordance.parquet",
+        # Tier 2: Features
+        JSON_DIR / "qc_config.json" if (DATA_ROOT / "tile_level_features.parquet").exists() else [],
+        PRECOMPUTED_STATS_DIR / "similar_slides.parquet",
+        PRECOMPUTED_STATS_DIR / "slide_top_tiles.parquet" if (DATA_ROOT / "representative_tiles").exists() else [],
+        # Tier 3: Associations
+        PRECOMPUTED_STATS_DIR / "survival_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "feature_correlations.parquet",
+        PRECOMPUTED_STATS_DIR / "treatment_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "mutation_frequency.parquet",
+        QC_DIR / "batch_effect_pvca.parquet",
+        # Tier 3 (optional): Proteomics correlations (CPTAC only)
+        PRECOMPUTED_STATS_DIR / "proteomics_correlations.parquet" if (INPUT_ROOT / "processed" / "molecular" / "proteomics.parquet").exists() else [],
+        # Tier 3.5: Supplementary (post-embeddings)
+        PARQUET_DIR / "feature_redundancy/feature_correlation_matrix.parquet",
+        SUPPLEMENTARY_DIR / "per_cancer_feature_distributions.parquet",
+        SUPPLEMENTARY_DIR / "variance_decomposition.parquet",
+        PARQUET_DIR / "data_completeness.parquet",
+        SUPPLEMENTARY_DIR / "segmentation_quality_by_cancer.parquet",
+        # Tier 4: Enrichments
+        CLUSTER_ANALYSES_DIR / "cluster_pathway_gsea.parquet",
+        # Tier 4: Supplementary (post-associations)
+        PARQUET_DIR / "bh_by_comparison.parquet",
+        PARQUET_DIR / "null_model_results.json",
+        SUPPLEMENTARY_DIR / "endpoint_concordance.parquet",
+        SUPPLEMENTARY_DIR / "ood_sensitivity.parquet",
+        SUPPLEMENTARY_DIR / "feature_reliability_tiers.parquet",
+        # Tier 5: Meta-analyses
+        # MDES updates survival, correlations, categorical in place
+        # Tier 6: Export
+        JSON_DIR / "frontend_data.json",
+        JSON_DIR / "provenance.json",
+        # Validation
+        VALIDATION_DIR / "validation_report.json",
+
+
+rule analyses_only:
+    """Run all analyses without validation."""
+    input:
+        PARQUET_DIR / "slide_histomics.parquet",
+        PRECOMPUTED_STATS_DIR / "similar_slides.parquet",
+        PRECOMPUTED_STATS_DIR / "survival_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "feature_correlations.parquet",
+        PRECOMPUTED_STATS_DIR / "treatment_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "mutation_frequency.parquet",
+        QC_DIR / "batch_effect_pvca.parquet",
+        CLUSTER_ANALYSES_DIR / "cluster_pathway_gsea.parquet",
+        JSON_DIR / "frontend_data.json",
+
+
+rule tier1:
+    """Tier 1: Embeddings and clustering only."""
+    input:
+        PARQUET_DIR / "slide_histomics.parquet",
+
+
+rule tier2:
+    """Tier 2: QC, similar slides, representative tiles."""
+    input:
+        PRECOMPUTED_STATS_DIR / "similar_slides.parquet",
+
+
+rule tier3:
+    """Tier 3: All association analyses."""
+    input:
+        PRECOMPUTED_STATS_DIR / "survival_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "feature_correlations.parquet",
+        PRECOMPUTED_STATS_DIR / "treatment_associations.parquet",
+        PRECOMPUTED_STATS_DIR / "mutation_frequency.parquet",
+        QC_DIR / "batch_effect_pvca.parquet",
+
+
+# =============================================================================
+# Utility rules
+# =============================================================================
+
+rule clean:
+    """Remove generated output files from current run (preserves input symlinks)."""
+    shell:
+        """
+        echo "Cleaning outputs in {DATA_ROOT}..."
+        rm -rf {DATA_ROOT}/parquet {DATA_ROOT}/json {DATA_ROOT}/validation {DATA_ROOT}/figures
+        echo "Done."
+        """
+
+
+rule dag:
+    """Generate DAG visualization."""
+    shell:
+        """
+        snakemake --dag --snakefile workflow/Snakefile | dot -Tpng > dag.png
+        echo "DAG saved to dag.png"
+        """

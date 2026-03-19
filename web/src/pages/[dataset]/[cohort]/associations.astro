@@ -1,0 +1,56 @@
+---
+import { readFileSync } from 'node:fs';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/astro/Breadcrumbs.astro';
+import { AssociationsPageIsland } from '../../../islands/AssociationsPageIsland';
+import { COHORT_FULL_NAMES } from '../../../data/cohortNames';
+
+export function getStaticPaths() {
+  const manifest = JSON.parse(readFileSync('public/api/_manifests/datasets.json', 'utf-8'));
+  const paths = [];
+  for (const [dataset, info] of Object.entries(manifest)) {
+    for (const cohort of (info as any).cancerTypes) {
+      paths.push({ params: { dataset, cohort } });
+    }
+  }
+  return paths;
+}
+
+const { dataset, cohort } = Astro.params;
+const displayCohort = cohort ?? 'PANCAN';
+const cohortFullName = COHORT_FULL_NAMES[displayCohort] ?? displayCohort;
+const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
+---
+
+<BaseLayout
+  title={`${cohortFullName} Associations — ${datasetDisplayName} · HistoAtlas`}
+  description={`Cross-feature association rankings for the ${datasetDisplayName} ${cohortFullName} (${displayCohort}) cohort.`}
+  canonicalUrl={`/${dataset}/${displayCohort}/associations/`}
+  breadcrumbs={[
+    { name: datasetDisplayName, url: `/${dataset}/PANCAN/atlas/` },
+    { name: cohortFullName, url: `/${dataset}/${displayCohort}/atlas/` },
+    { name: 'Associations' },
+  ]}
+>
+  <div class="min-h-screen bg-zinc-50">
+    <!-- White header zone with breadcrumbs -->
+    <div class="bg-white">
+      <div class="max-w-7xl mx-auto px-6 pt-6">
+        <Breadcrumbs items={[{ label: datasetDisplayName, href: `/${dataset}/PANCAN/atlas/` }, { label: cohortFullName, href: `/${dataset}/${displayCohort}/atlas/` }, { label: 'Associations' }]} />
+      </div>
+    </div>
+
+    <!-- SSR header: visible to crawlers, removed when React hydrates -->
+    <div id="ssr-header">
+      <div class="bg-white border-b border-zinc-200">
+        <div class="max-w-7xl mx-auto px-6 pt-3 pb-5">
+          <h1 class="text-2xl font-semibold text-zinc-900">Associations Hub</h1>
+          <p class="text-sm text-zinc-500 mt-1">Discover the histomics associated with outcomes in the {datasetDisplayName} {cohortFullName} cohort.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- React island -->
+    <AssociationsPageIsland dataset={dataset} cohort={displayCohort} client:only="react" />
+  </div>
+</BaseLayout>

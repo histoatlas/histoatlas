@@ -1,0 +1,111 @@
+---
+title: "Epithelial-Mesenchymal Transition in Cancer"
+description: "Epithelial-mesenchymal transition reshapes tumor morphology across 12 cancer types — quantified from 6,745 TCGA slides. Pan-cancer data from HistoAtlas."
+pubDate: "2026-03-02"
+updatedDate: ""
+keywords:
+  - "epithelial mesenchymal transition"
+  - "epithelial to mesenchymal transition"
+  - "EMT cancer"
+  - "EMT tumor morphology"
+hub: "epithelial-mesenchymal-transition-cancer"
+author: "Pierre-Antoine Bannier"
+heroImage: "/blog/emt-thumbnail.svg"
+heroAlt: "Heatmap of EMT pathway correlations with histomic features across 12 TCGA cancer types from HistoAtlas"
+schema:
+  type: "WebPage"
+  about: "Epithelial-Mesenchymal Transition"
+  dataset: "TCGA pan-cancer"
+faq:
+  - question: "What is epithelial-mesenchymal transition?"
+    answer: "Epithelial-mesenchymal transition (EMT) is a cellular program in which epithelial cells lose their polarity and cell-cell adhesion and acquire a migratory, mesenchymal phenotype. In cancer, EMT enables tumor cells to invade surrounding tissue, resist therapy, and metastasize to distant organs."
+  - question: "How does EMT affect tumor morphology?"
+    answer: "EMT leaves quantifiable signatures in H&E tissue sections: reduced intratumoral cancer cell density, deeper invasion fronts, and expanded tumor-stroma interfaces. These patterns are consistent across multiple cancer types including gastric, bladder, lung, and breast cancer."
+  - question: "Can EMT be detected from histopathology slides?"
+    answer: "Yes. HistoAtlas data shows that histomic features extracted from standard H&E slides — particularly cancer cell density, invasion depth, and tumor-stroma interface density — correlate significantly with EMT pathway activity scores derived from gene expression data."
+sitemap:
+  priority: 0.9
+  changefreq: "monthly"
+---
+
+import Figure1 from './figures/Figure1_EmtPanCancer_Heatmap.tsx';
+import Figure2 from './figures/Figure2_EmtGenes_BarChart.tsx';
+import Figure3 from './figures/Figure3_ClusterEmt_BarChart.tsx';
+
+Epithelial-mesenchymal transition correlates with stromal expansion in some cancer types, reduced tumor cell density in others, and deeper invasion fronts in still others — yet textbook descriptions treat it as a single, uniform process. HistoAtlas data across 6,745 TCGA whole-slide images reveals that EMT leaves distinct and quantifiable morphological signatures, and that these signatures vary dramatically by cancer type.
+
+## What Is Epithelial-Mesenchymal Transition?
+
+Epithelial-mesenchymal transition is a cellular program in which epithelial cells lose their polarity and cell-cell adhesion and acquire a migratory, mesenchymal phenotype [1]. In normal development, EMT drives gastrulation, neural crest migration, and wound healing. In cancer, the same program is co-opted: tumor cells detach from the primary mass, invade surrounding stroma, resist apoptosis, and ultimately seed distant metastases [2].
+
+The molecular machinery is well characterized. Transcription factors — *ZEB1*, *SNAI1*, *TWIST1* — repress epithelial markers like *CDH1* (E-cadherin) and upregulate mesenchymal markers like *VIM* (vimentin) and *FN1* (fibronectin) [3]. Upstream signals from TGF-β, Wnt, and Notch pathways activate these transcription factors in response to microenvironmental cues, including hypoxia, inflammatory cytokines, and matrix stiffness. The downstream consequences extend beyond migration: EMT confers resistance to chemotherapy, promotes cancer stem cell properties, and suppresses anti-tumor immunity [3].
+
+Critically, EMT in tumors is rarely complete. Most cancer cells exist along a spectrum of intermediate states, retaining some epithelial features while gaining mesenchymal ones [1]. This partial EMT has been mapped at single-cell resolution in lung cancer, revealing a continuum of hybrid states in which cells progressively acquire mesenchymal characteristics while retaining partial epithelial identity [4]. The question for computational pathology is whether these molecular transitions leave visible traces in standard H&E-stained tissue sections — and if so, which morphological features best capture them.
+
+## EMT Reshapes Tumor Architecture Across Cancer Types
+
+To answer this, HistoAtlas computes Spearman correlations between EMT pathway activity scores (derived from GSVA on Hallmark gene sets) and 38 quantitative histomic features extracted from H&E whole-slide images. These features capture tissue composition (tumor area, stroma area, immune cell densities), spatial organization (invasion depth, cell proximity, interface density), and nuclear morphology (pleomorphism, eccentricity, irregularity). The analysis spans 12 TCGA cancer types with sufficient sample sizes, totaling 4,527 slides in the pan-cancer view.
+
+<Figure1 client:load />
+
+Three histomorphological patterns emerge consistently across cancer types.
+
+**Reduced intratumoral cancer cell density.** The strongest and most reproducible signal. In STAD (gastric cancer, n = 353), the correlation between EMT scores and intratumoral cancer cell density reaches ρ = −0.42 (FDR-adjusted p < 0.001). The pattern holds in BLCA (ρ = −0.37), PAAD (ρ = −0.36), and LUAD (ρ = −0.30). Biologically, this reflects what single-cell studies have shown: EMT-transitioning cells lose adhesion, disperse from cohesive tumor nests, and intermingle with stromal elements [4]. The result is a looser, less densely packed tumor architecture.
+
+**Deeper invasion fronts.** EMT-high tumors show significantly greater invasion depth in MESO (ρ = 0.47, n = 71), STAD (ρ = 0.40), ESCA (ρ = 0.34), and LUAD (ρ = 0.34). This aligns with the established role of EMT in conferring invasive capacity through matrix metalloproteinase upregulation and basement membrane degradation [3].
+
+**Expanded tumor–stroma interfaces.** In BLCA (ρ = 0.39) and STAD (ρ = 0.30), EMT pathway scores correlate with higher tumor–stroma interface density — more boundary between tumor and stroma per unit area. This feature captures the morphological consequence of tumor cells infiltrating into, rather than compressing, the surrounding stroma. Stromal collagen remodeling is a known downstream effect of EMT, with mesenchymal tumor cells actively reshaping the extracellular matrix through MMP secretion and integrin-mediated signaling.
+
+Notably, the cancer types with the strongest EMT-morphology correlations — STAD, BLCA, MESO, LUAD — are also those where EMT has been most strongly implicated in clinical progression. In gastric and bladder cancers, the mesenchymal molecular subtype is associated with poor chemotherapy response and invasive behavior, consistent with the tissue-level signatures HistoAtlas quantifies.
+
+## EMT Transcription Factors Map to Specific Morphological Features
+
+The pan-cancer heatmap above shows pathway-level correlations. But the individual EMT transcription factors and markers reveal even sharper — and more mechanistically informative — associations.
+
+<Figure2 client:visible />
+
+*ZEB1* dominates. In BRCA (n = 958), *ZEB1* expression correlates at ρ = 0.45 with both tumor–stroma interface density and tumor front fraction — the strongest single gene-to-morphology association in the dataset. *ZEB1* has been identified as a master regulator not only of EMT itself, but of lineage-specific transcriptional programs that drive mesenchymal cell states [5]. Its morphological correlates in HistoAtlas data suggest that *ZEB1*-high tumors are architecturally defined by extensive, irregular tumor–stroma boundaries rather than smooth pushing fronts.
+
+The epithelial marker *CDH1* shows an inverse pattern: tumors with high E-cadherin expression have reduced lymphocyte infiltration at the invasion front (ρ = −0.26). One interpretation is that intact epithelial architecture creates a more compact tumor boundary that limits immune cell penetration, though the broader literature more commonly links EMT-high (mesenchymal) states — rather than epithelial-intact states — to active immune exclusion through immunosuppressive cytokine secretion [7]. The CDH1 association may reflect tissue-structural rather than immunological mechanisms. *SNAI1* expression, meanwhile, correlates most strongly with reduced cancer cell density (ρ = −0.29), reflecting its role in initiating the early phases of EMT when cells first begin to dissociate [3].
+
+These gene-level findings reinforce a key point: EMT is not a single morphological transformation. Different transcription factors leave different structural signatures, and those signatures can be separately quantified from standard H&E images [6].
+
+## Morphology Clusters Reveal EMT-Enriched Tumor Phenotypes
+
+HistoAtlas groups all 6,745 slides into 10 pan-cancer morphology clusters based on their 38-feature histomic profiles. When we overlay EMT pathway scores onto these clusters, the enrichment pattern is striking.
+
+<Figure3 client:visible />
+
+<a href="/tcga/PANCAN/cluster/L1-8" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">**Cluster L1-8**</a> — labeled "Immune-Cold, High-Interface (BRCA-enriched)" — shows the strongest EMT enrichment of any cluster (score difference = +0.103, p < 10⁻³⁰, n = 1,199 slides). This cluster is dominated by breast (44%) and prostate (24%) cancers. Its defining histomic features — high tumor–stroma interface density and low immune infiltration — match precisely the morphological pattern predicted by EMT biology: mesenchymal-shifted tumors that remodel stroma while evading immune surveillance [7].
+
+At the opposite extreme, **Cluster L1-4** (Immune-Hot, THYM-enriched) is the most EMT-depleted (score difference = −0.141, p < 10⁻¹⁰). These tumors have high lymphocyte proximity and dense immune infiltration — a phenotype incompatible with the immunosuppressive microenvironment that EMT typically promotes [7].
+
+This cluster-level view reveals something individual correlations cannot: EMT does not operate in isolation. EMT-high clusters are simultaneously immune-cold and stroma-remodeled, suggesting a coordinated tissue program rather than a single molecular switch. Recent work in triple-negative breast cancer has confirmed this link experimentally — EMT phenotype variants produce distinct immune microenvironments, with mesenchymal-shifted clones showing reduced cytotoxic T-cell infiltration and function [7].
+
+The practical implication for computational pathology is that EMT status can be approximated from tissue architecture without molecular assays. A slide with low cancer cell density, high tumor–stroma interface density, and deep invasion fronts is statistically likely to have elevated EMT pathway activity — a prediction that can be validated and refined on HistoAtlas.
+
+## EMT-Related Features and Patient Survival
+
+Two of the most EMT-correlated histomic features carry pan-cancer survival associations. Tumor–stroma interface density is associated with improved overall survival at the pan-cancer level (HR = 0.83, 95% CI: 0.79–0.87, p = 5.4 × 10⁻¹², n = 5,957). Intratumoral cancer cell density — the feature most negatively correlated with EMT — is also protective (HR = 0.90, 95% CI: 0.87–0.94, p = 8.5 × 10⁻⁶, n = 5,957). Meanwhile, invasion depth shows the expected adverse trend (HR = 1.06, 95% CI: 1.01–1.11, p = 0.02, n = 5,949). An important caveat: these are unadjusted pan-cancer Cox models. Cancer-type composition strongly influences the pooled estimates — features enriched in inherently better-prognosis cancers (breast, prostate, thyroid) will appear protective even absent a true within-cancer-type effect. The within-cancer-type survival associations, available on HistoAtlas, provide the more interpretable comparison.
+
+At the cluster level, the most EMT-enriched group (Cluster L1-8) has a median overall survival of 120.6 months compared to 84.6 months for all other slides (log-rank p = 3.3 × 10⁻¹⁷). This apparent survival advantage may partly reflect the cluster's cancer type composition — 44% breast, 24% prostate — both carrying inherently better prognoses than pan-cancer averages.
+
+The protective association for tumor–stroma interface density is initially counterintuitive — EMT drives more interface, and EMT is generally considered adverse. But the interface metric captures something distinct from EMT itself: how much tumor engages with stroma. This engagement may reflect a less cohesive tumor that is, paradoxically, more accessible to whatever immune or stromal defenses remain. High interface density also tends to co-occur with less compact, more infiltrative growth patterns that may respond differently to therapy than solid tumor masses.
+
+This dissociation between an EMT-correlated feature and adverse outcomes underscores a broader point: morphological quantification adds resolution beyond molecular scores alone. A tumor's EMT pathway score captures transcriptional state, but the tissue-level consequences — how invasion depth, cell density, and stromal engagement actually manifest — carry their own prognostic information. The two layers of analysis are complementary, not redundant.
+
+## Explore EMT Associations on HistoAtlas
+
+The data behind these analyses is fully interactive on HistoAtlas. Explore <a href="/tcga/PANCAN/associations" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">EMT pathway correlations across all 38 histomic features</a>, drill into individual cancer types, or examine the <a href="/tcga/PANCAN/cluster/L1-8" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">EMT-enriched Cluster L1-8 profile</a> to see its cancer composition, survival curves, and molecular enrichments. The key EMT-correlated features discussed above are available as dedicated pages: <a href="/tcga/PANCAN/histomics/tumor_stroma_interface_density" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">tumor–stroma interface density</a>, <a href="/tcga/PANCAN/histomics/intratumoral_cancer_cell_density" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">intratumoral cancer cell density</a>, and <a href="/tcga/PANCAN/histomics/invasion_depth_p75" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">invasion depth</a>. Compare <a href="/tcga/PANCAN/atlas" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">morphology clusters in the HistoAtlas embedding</a> to see where EMT-enriched tumors concentrate in the pan-cancer landscape. For background on how pathway scores are computed, see our guide to <a href="/blog/gene-set-enrichment-analysis" style="color: #1B4965; text-decoration: underline; text-decoration-color: #62B6CB; text-underline-offset: 3px;" data-internal="true">gene set enrichment analysis in cancer</a>.
+
+---
+
+## References
+
+1. Nieto MA, Huang RY, Jackson RA, Thiery JP. [EMT: 2016](https://doi.org/10.1016/j.cell.2016.06.028). *Cell* 166(1):21–45, 2016.
+2. Thiery JP, Acloque H, Huang RY, Nieto MA. [Epithelial-mesenchymal transitions in development and disease](https://doi.org/10.1016/j.cell.2009.11.007). *Cell* 139(5):871–890, 2009.
+3. Dongre A, Weinberg RA. [New insights into the mechanisms of epithelial-mesenchymal transition and implications for cancer](https://doi.org/10.1038/s41580-018-0080-4). *Nature Reviews Molecular Cell Biology* 20:69–84, 2019.
+4. Karacosta LG, Anchang B, Ignatiadis N, et al. [Mapping Lung Cancer Epithelial-Mesenchymal Transition States and Trajectories with Single-Cell Resolution](https://doi.org/10.1038/s41467-019-13441-6). *Nature Communications* 10:5587, 2019.
+5. Zhang P, Sun Y, Ma L. [ZEB1: at the crossroads of epithelial-mesenchymal transition, metastasis and therapy resistance](https://doi.org/10.4161/15384101.2014.987145). *Cell Cycle* 14(4):481–487, 2015.
+6. Wang S, Rong R, Yang DM, et al. [Computational Staining of Pathology Images to Study the Tumor Microenvironment in Lung Cancer](https://doi.org/10.1158/0008-5472.CAN-19-1629). *Cancer Research* 80(10):2056–2066, 2020.
+7. Lu H, Bagheri M, Kolling FW, et al. [Epithelial-Mesenchymal Transition is Associated with Altered Immune Composition and Cytotoxic Function in Triple-Negative Breast Cancer](https://doi.org/10.1101/2025.10.22.683714). *bioRxiv*, 2025.

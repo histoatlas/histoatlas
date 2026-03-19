@@ -1,0 +1,13 @@
+dataset:
+  name: tcga
+  include_pancan: true
+  batch_proxy_column: tss
+  in_distribution_cancer_types:
+    - LUAD
+    - LUSC
+    - BRCA
+    - COAD
+    - BLCA
+    - OV
+    - PAAD
+    - MESO

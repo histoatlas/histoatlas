@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="HistoAtlas · Privacy Policy"
+  description="Privacy policy for HistoAtlas."
+  canonicalUrl="/privacy/"
+>
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-semibold text-zinc-900 mb-3">Privacy Policy</h1>
+    <p class="text-sm text-zinc-500 mb-8">Last updated: February 2026</p>
+
+    <div class="space-y-8 text-zinc-600 leading-relaxed">
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Overview</h2>
+        <p>
+          HistoAtlas is a publicly accessible, non-commercial research tool for exploring
+          morphological patterns in solid tumors derived from TCGA and CPTAC whole-slide images.
+          We are committed to transparency about what data we collect and how we use it.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">No User Accounts or Personal Data</h2>
+        <p>
+          HistoAtlas does not require user accounts, logins, or registration. We do not collect
+          names, email addresses, or any other personally identifiable information. There are no
+          user profiles, saved preferences, or authentication mechanisms.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Server Logs</h2>
+        <p>
+          Our web server records standard operational logs that may include IP addresses, browser
+          user-agent strings, requested URLs, and timestamps. These logs are used solely for
+          infrastructure monitoring, debugging, and abuse prevention. They are retained for a
+          limited period and are not shared with third parties.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Cookies and Tracking</h2>
+        <p>
+          HistoAtlas does not use cookies for tracking, advertising, or analytics. No third-party
+          tracking scripts (e.g., Google Analytics, Facebook Pixel) are embedded on the site. We do
+          not fingerprint browsers or track users across sessions.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Data Served by HistoAtlas</h2>
+        <p>
+          All data displayed in HistoAtlas is derived from publicly available datasets, primarily
+          The Cancer Genome Atlas (TCGA) via the Genomic Data Commons (GDC). The data we serve
+          consists exclusively of:
+        </p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Precomputed morphological features and statistical summaries</li>
+          <li>Embedding coordinates for visualization</li>
+          <li>Aggregated survival, molecular, and immune association results</li>
+          <li>Histology tile images fetched on demand from GDC</li>
+        </ul>
+        <p class="mt-2">
+          No protected health information (PHI) is stored or served. TCGA identifiers are treated
+          as research identifiers only and cannot be linked back to individual patients.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Third-Party Services</h2>
+        <p>
+          Tile images may be fetched from the NCI Genomic Data Commons (GDC) servers when you view
+          slide details. These requests are subject to
+          <a href="https://gdc.cancer.gov/about-gdc/gdc-policies" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">GDC&apos;s own policies</a>.
+          Beyond this, HistoAtlas does not integrate with any third-party analytics, advertising,
+          or social media services.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Data Exports</h2>
+        <p>
+          HistoAtlas allows you to export precomputed statistical results in CSV, JSON, and Parquet
+          formats. These exports contain only derived, non-identifying research data. No personal
+          information is included in any export.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Changes to This Policy</h2>
+        <p>
+          We may update this policy as the project evolves. Material changes will be reflected in
+          the "Last updated" date above.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Contact</h2>
+        <p>
+          For questions or concerns about this policy, please open an issue on our
+          <a href="https://github.com/PABannier/tumor-morpho-map" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

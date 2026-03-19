@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/astro/Breadcrumbs.astro';
+import { TRACKED_GENES } from '../../data/geneGlossary';
+import { MUTATION_PAGES } from '../../data/mutationPages';
+import { CANCER_TYPE_COLORS } from '../../lib/colors';
+
+const pageTitle = 'Gene Mutations in Cancer: Frequency, Survival & Morphology Data | HistoAtlas';
+const metaDescription =
+  'Explore how driver gene mutations (TP53, KRAS, BRAF, EGFR) affect cancer survival and tumor morphology across 33 TCGA cancer types. Free research platform.';
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Gene Mutations in Cancer',
+    description: metaDescription,
+    url: 'https://histoatlas.com/mutations/',
+    isPartOf: { '@type': 'WebSite', name: 'HistoAtlas', url: 'https://histoatlas.com/' },
+  },
+];
+
+// Group mutation pages by gene for top cancers
+function getTopCancersForGene(geneSlug: string) {
+  return MUTATION_PAGES.filter((p) => p.geneSlug === geneSlug)
+    .sort((a, b) => b.frequency - a.frequency)
+    .slice(0, 3)
+    .map((p) => ({ code: p.tcgaCode, color: CANCER_TYPE_COLORS[p.tcgaCode] ?? '#808080' }));
+}
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={metaDescription}
+  canonicalUrl="/mutations/"
+  ogImage="/og/mutations.png"
+  breadcrumbs={[
+    { name: 'Mutations' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="min-h-screen bg-zinc-50">
+    <!-- White header zone -->
+    <div class="bg-white border-b border-zinc-200">
+      <div class="max-w-7xl mx-auto px-6 pt-6">
+        <Breadcrumbs items={[
+          { label: 'Mutations' },
+        ]} />
+      </div>
+      <div class="max-w-7xl mx-auto px-6 pt-3 pb-5">
+        <h1 class="text-2xl font-semibold text-zinc-900">Gene Mutations in Cancer</h1>
+        <p class="text-sm text-zinc-600 mt-2 max-w-3xl">
+          Explore how driver gene mutations reshape tumor morphology and affect patient survival.
+          HistoAtlas links mutation status to computational histomics features across 33 TCGA cancer
+          types and 11,000+ whole slide images.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gene card grid -->
+    <main class="max-w-7xl mx-auto px-6 py-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {TRACKED_GENES.map((gene) => {
+          const topCancers = getTopCancersForGene(gene.slug);
+          const pageCount = MUTATION_PAGES.filter((p) => p.geneSlug === gene.slug).length;
+
+          return (
+            <a
+              href={`/mutations/${gene.slug}/`}
+              class="bg-white border border-zinc-200 rounded-lg p-5 hover:border-zinc-300 transition-colors group"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-lg font-semibold text-zinc-900 group-hover:text-blue-600 transition-colors">
+                  {gene.symbol}
+                </span>
+                <span class={`text-xs px-1.5 py-0.5 rounded-full ${
+                  gene.geneType === 'Oncogene'
+                    ? 'bg-red-50 text-red-700'
+                    : 'bg-blue-50 text-blue-700'
+                }`}>
+                  {gene.geneType}
+                </span>
+              </div>
+              <p class="text-xs text-zinc-500 mb-3 line-clamp-2">{gene.fullName}</p>
+              <div class="flex flex-wrap items-center gap-1.5">
+                {topCancers.map((c) => (
+                  <span
+                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-medium text-white"
+                    style={`background-color: ${c.color}`}
+                  >
+                    {c.code}
+                  </span>
+                ))}
+                {topCancers.length < pageCount && (
+                  <span class="text-xs text-zinc-400">+{pageCount - topCancers.length}</span>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Educational content -->
+      <div class="mt-8 bg-white border border-zinc-200 rounded-lg p-5 prose prose-zinc max-w-none prose-headings:text-zinc-900 prose-h2:text-lg prose-h2:font-semibold prose-h2:mt-6 [&>h2:first-child]:!mt-0 prose-h2:mb-2 prose-h3:text-base prose-h3:font-medium prose-h3:mt-4 prose-h3:mb-1.5 prose-p:text-sm prose-p:text-zinc-600 prose-p:my-2">
+        <h2>Understanding Driver Gene Mutations</h2>
+        <p>
+          Driver mutations are genetic changes that directly contribute to cancer development and
+          progression. Unlike passenger mutations (which occur randomly and do not confer growth
+          advantages), driver mutations activate oncogenes or inactivate tumor suppressor genes,
+          enabling uncontrolled cell proliferation.
+        </p>
+        <p>
+          HistoAtlas tracks 8 of the most clinically significant driver genes across 33 TCGA cancer
+          types. For each gene, we compute mutation frequency, survival impact (Cox regression and
+          Kaplan-Meier curves), morphological associations (how mutations change what tumors look like
+          under the microscope), and mutation co-occurrence patterns.
+        </p>
+        <h3>How to Use These Pages</h3>
+        <p>
+          Click any gene above to see its pan-cancer overview, including mutation frequency across
+          cancer types and a survival forest plot. From there, drill into specific gene-cancer
+          combinations to explore survival curves, morphology differences, and co-occurring mutations.
+        </p>
+      </div>
+    </main>
+  </div>
+</BaseLayout>

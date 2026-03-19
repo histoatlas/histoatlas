@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="HistoAtlas · Terms of Service"
+  description="Terms of service for HistoAtlas."
+  canonicalUrl="/terms/"
+>
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-semibold text-zinc-900 mb-3">Terms of Service</h1>
+    <p class="text-sm text-zinc-500 mb-8">Last updated: February 2026</p>
+
+    <div class="space-y-8 text-zinc-600 leading-relaxed">
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Acceptance of Terms</h2>
+        <p>
+          By accessing or using HistoAtlas, you agree to be bound by these Terms of Service. If you
+          do not agree to these terms, please do not use the service.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Description of Service</h2>
+        <p>
+          HistoAtlas is an exploratory research tool for visualizing and analyzing morphological
+          patterns in solid tumors derived from whole-slide histology images. It provides
+          interactive embedding visualizations, cluster characterizations, and statistical
+          association analyses. HistoAtlas is designed for research exploration and
+          hypothesis generation. It is not a clinical or diagnostic tool.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Data Sources &amp; Attribution</h2>
+        <p>
+          The data presented in HistoAtlas is derived from publicly available datasets, primarily:
+        </p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>The Cancer Genome Atlas (TCGA) via the Genomic Data Commons (GDC)</li>
+          <li>PanCancerAtlas integrated datasets</li>
+          <li>Immune subtype classifications (Thorsson et al., <em>Immunity</em>, 2018)</li>
+        </ul>
+        <p class="mt-2">
+          No protected health information (PHI) is stored or served. TCGA sample identifiers are
+          treated as research identifiers only and cannot be linked back to individual patients.
+          All source data is subject to
+          <a href="https://gdc.cancer.gov/about-gdc/gdc-policies" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">GDC data use policies</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Permitted Use</h2>
+        <p>You may use HistoAtlas for:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Educational purposes and learning about tumor morphology</li>
+          <li>Academic and non-commercial research</li>
+          <li>Hypothesis generation and exploratory data analysis</li>
+          <li>Generating figures and exports for research publications (with appropriate citation)</li>
+        </ul>
+        <p class="mt-2">You must not use HistoAtlas for:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Clinical decision-making, patient diagnosis, or treatment planning</li>
+          <li>Any purpose that would violate TCGA/GDC data use agreements</li>
+          <li>Attempting to re-identify patients from research identifiers or derived data</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Intellectual Property</h2>
+        <p>
+          Source data is made available under TCGA/GDC data use policies and the respective
+          policies of contributing studies. Derived statistical analyses, visualizations, and
+          precomputed results presented through HistoAtlas are provided as-is for research use.
+          The HistoAtlas source code is available under the terms specified in our
+          <a href="https://github.com/PABannier/tumor-morpho-map" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Disclaimers</h2>
+        <p>
+          HistoAtlas is not medical software and does not provide medical advice, diagnosis, or
+          treatment recommendations. The statistical associations and visualizations presented are
+          exploratory in nature and should not be interpreted as established clinical findings.
+        </p>
+        <p class="mt-2">
+          The service is provided "as is" and "as available" without warranties of any kind,
+          whether express or implied, including but not limited to warranties of merchantability,
+          fitness for a particular purpose, accuracy, or non-infringement.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by applicable law, the maintainers and contributors of
+          HistoAtlas shall not be liable for any indirect, incidental, special, consequential, or
+          punitive damages, or any loss of data, profits, or goodwill, arising out of or in
+          connection with your use of the service.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Changes to These Terms</h2>
+        <p>
+          We may update these Terms of Service as the project evolves. Material changes will be
+          reflected in the "Last updated" date above. Continued use of HistoAtlas after changes
+          are posted constitutes acceptance of the revised terms.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-2">Contact</h2>
+        <p>
+          For questions or concerns about these terms, please open an issue on our
+          <a href="https://github.com/PABannier/tumor-morpho-map" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  type: 'key-concept' | 'clinical-note' | 'method-note' | 'caution';
+}
+
+const { type } = Astro.props;
+
+const styles: Record<string, { border: string; bg: string; icon: string }> = {
+  'key-concept': { border: '#62B6CB', bg: '#F0F9FC', icon: '🔬' },
+  'clinical-note': { border: '#5B8E7D', bg: '#F0F7F4', icon: '🏥' },
+  'method-note': { border: '#8D6B94', bg: '#F5F0F6', icon: '⚙️' },
+  caution: { border: '#E07A5F', bg: '#FEF5F2', icon: '⚠️' },
+};
+
+const s = styles[type] || styles['key-concept'];
+---
+
+<aside
+  role="note"
+  style={`
+    border-left: 4px solid ${s.border};
+    background: ${s.bg};
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  `}
+>
+  <span style="margin-right: 0.5rem;">{s.icon}</span>
+  <slot />
+</aside>

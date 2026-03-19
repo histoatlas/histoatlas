@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found | HistoAtlas"
+  description="The page you are looking for does not exist or has been moved."
+>
+  <div class="flex items-center justify-center py-24">
+    <div class="text-center max-w-md px-6">
+      <h1 class="text-6xl font-bold text-zinc-900 mb-4">404</h1>
+      <p class="text-lg text-zinc-600 mb-2">Page not found</p>
+      <p class="text-sm text-zinc-500 mb-8">
+        The page you are looking for does not exist, has been moved, or the URL may be incorrect.
+      </p>
+      <div class="flex flex-col items-center gap-3">
+        <a
+          href="/"
+          class="inline-flex items-center px-5 py-2.5 bg-zinc-900 text-white rounded-lg hover:bg-zinc-800 transition-colors text-sm font-medium"
+        >
+          Browse Cohorts
+        </a>
+        <p class="text-sm text-zinc-500">
+          Or try searching with <kbd class="px-1.5 py-0.5 bg-zinc-100 border border-zinc-200 rounded text-xs font-mono">/</kbd>
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
