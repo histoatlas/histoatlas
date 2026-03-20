@@ -53,7 +53,7 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       <p>
         Manual mitotic counting is labor-intensive and suffers from inter-observer variability. HistoAtlas uses
         deep learning to detect mitotic figures computationally from standard H&amp;E-stained whole slide images
-        across all 33 TCGA cancer types — enabling consistent, reproducible quantification at a scale no manual
+        across all 33 TCGA cancer types, enabling consistent, reproducible quantification at a scale no manual
         approach can achieve. Explore below how mitotic index associates with patient survival, molecular
         subtypes, and driver mutations across cancers.
       </p>
@@ -100,21 +100,21 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
     educationalIntro: `
       <p>
         <strong>Nuclear pleomorphism</strong> refers to variability in the size and shape of tumor cell nuclei.
-        When tumor cells display a wide range of nuclear sizes — from small, uniform nuclei to large, irregular
-        ones — the tumor is described as pleomorphic. Nuclear pleomorphism is one of the most important
+        When tumor cells display a wide range of nuclear sizes (from small, uniform nuclei to large, irregular
+        ones), the tumor is described as pleomorphic. Nuclear pleomorphism is one of the most important
         histological features assessed by pathologists when grading cancers.
       </p>
       <p>
-        In breast cancer, nuclear pleomorphism is scored on a 1–3 scale as part of the <strong>Nottingham
-        histological grade</strong>: <strong>Score 1</strong> (mild) — nuclei are small and uniform with
-        minimal variation; <strong>Score 2</strong> (moderate) — nuclei show moderate size variation with
-        visible nucleoli; <strong>Score 3</strong> (marked) — nuclei vary dramatically in size and shape with
+        In breast cancer, nuclear pleomorphism is scored on a 1-3 scale as part of the <strong>Nottingham
+        histological grade</strong>: <strong>Score 1</strong> (mild), nuclei are small and uniform with
+        minimal variation; <strong>Score 2</strong> (moderate), nuclei show moderate size variation with
+        visible nucleoli; <strong>Score 3</strong> (marked), nuclei vary dramatically in size and shape with
         prominent nucleoli and frequent irregular contours.
       </p>
       <p>
         Traditional pleomorphism scoring is categorical (1/2/3) and subjective, leading to significant
         inter-observer variability. HistoAtlas bridges this gap by computing a <strong>continuous pleomorphism
-        index</strong> — the coefficient of variation (CV) of tumor nuclear area. This captures the same
+        index</strong>, the coefficient of variation (CV) of tumor nuclear area. This captures the same
         biological signal (nuclear size heterogeneity) as a precise, reproducible number:
       </p>
       <p class="formula-block"><span data-tex="\\text{Pleomorphism Index} = \\frac{\\operatorname{IQR}(A_{\\text{nuc}})}{\\operatorname{median}(A_{\\text{nuc}}) + \\varepsilon}"></span></p>
@@ -133,7 +133,7 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       {
         question: 'What does nuclear pleomorphism score 2 mean?',
         answer:
-          'A nuclear pleomorphism score of 2 (moderate) means the tumor nuclei show moderate variation in size — they are larger than normal cells, may have visible nucleoli, but the variation is not extreme. In the Nottingham system, score 2 is intermediate between well-differentiated (score 1) and poorly-differentiated (score 3) tumors.',
+          'A nuclear pleomorphism score of 2 (moderate) means the tumor nuclei show moderate variation in size. They are larger than normal cells, may have visible nucleoli, but the variation is not extreme. In the Nottingham system, score 2 is intermediate between well-differentiated (score 1) and poorly-differentiated (score 3) tumors.',
       },
       {
         question: 'What does nuclear pleomorphism score 3 mean?',
@@ -160,8 +160,8 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       `TIL density in ${cancer}: survival curves, molecular correlations & mutation data from TCGA. Free research platform.`,
     educationalIntro: `
       <p>
-        <strong>Tumor infiltrating lymphocytes (TILs)</strong> are immune cells — primarily T cells and
-        B cells — that have migrated from the bloodstream into the tumor tissue. Their presence indicates
+        <strong>Tumor infiltrating lymphocytes (TILs)</strong> are immune cells (primarily T cells and
+        B cells) that have migrated from the bloodstream into the tumor tissue. Their presence indicates
         that the immune system has recognized the tumor and is mounting a response. TIL density is one of
         the strongest prognostic biomarkers across multiple cancer types.
       </p>
@@ -175,14 +175,14 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       </p>
       <p>
         An important distinction is <em>where</em> the lymphocytes are located. <strong>Intratumoral
-        TILs</strong> are lymphocytes that have penetrated into the tumor epithelium itself — they are in
+        TILs</strong> are lymphocytes that have penetrated into the tumor epithelium itself; they are in
         direct contact with cancer cells. <strong>Stromal TILs</strong> are found in the surrounding stroma
         but have not crossed into the tumor nests. HistoAtlas measures both compartments separately:
         intratumoral lymphocyte density (this feature) and
         <a href="/tcga/PANCAN/histomics/stromal_lymphocyte_density/">stromal lymphocyte density</a>.
       </p>
       <p>
-        HistoAtlas measures intratumoral lymphocyte density as <strong>cells per mm²</strong> — a continuous,
+        HistoAtlas measures intratumoral lymphocyte density as <strong>cells per mm²</strong>, a continuous,
         quantitative measurement computed by deep learning cell detection across the entire tumor area. This
         overcomes the limitations of traditional categorical scoring (absent/non-brisk/brisk), which suffers
         from inter-observer variability and loses granular information. The formula is:
@@ -197,7 +197,7 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       {
         question: 'What are tumor infiltrating lymphocytes?',
         answer:
-          'Tumor infiltrating lymphocytes (TILs) are immune cells — mainly T cells and B cells — that have migrated from the blood into the tumor. Their presence indicates an active immune response against the cancer. Higher TIL levels are associated with better outcomes in many cancer types including breast, colorectal, and melanoma.',
+          'Tumor infiltrating lymphocytes (TILs) are immune cells (mainly T cells and B cells) that have migrated from the blood into the tumor. Their presence indicates an active immune response against the cancer. Higher TIL levels are associated with better outcomes in many cancer types including breast, colorectal, and melanoma.',
       },
       {
         question: 'What does tumor infiltrating lymphocytes brisk mean?',
@@ -231,13 +231,13 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
     educationalIntro: `
       <p>
         <strong>Cancer associated fibroblasts (CAFs)</strong> are activated fibroblasts found in the tumor
-        stroma — the connective tissue surrounding cancer cells. Unlike normal quiescent fibroblasts, CAFs
+        stroma, the connective tissue surrounding cancer cells. Unlike normal quiescent fibroblasts, CAFs
         are reprogrammed by tumor-derived signals to support cancer growth through multiple mechanisms:
         extracellular matrix (ECM) remodeling, secretion of growth factors, immune modulation, and promotion
         of angiogenesis.
       </p>
       <p>
-        CAFs are central players in the <strong>desmoplastic reaction</strong> — the dense fibrotic stroma
+        CAFs are central players in the <strong>desmoplastic reaction</strong>, the dense fibrotic stroma
         that characterizes many solid tumors, particularly pancreatic, breast, and colorectal cancers. They
         deposit and cross-link collagen, creating a stiff extracellular matrix that can physically exclude
         immune cells from the tumor (immune exclusion) and impede drug delivery. CAFs also secrete
@@ -266,7 +266,7 @@ export const TIER1_SEO_CONTENT: Record<string, Tier1SeoContent> = {
       {
         question: 'What are cancer associated fibroblasts?',
         answer:
-          'Cancer associated fibroblasts (CAFs) are activated fibroblasts in the tumor stroma that have been reprogrammed by cancer cells to support tumor growth. They remodel the extracellular matrix, secrete growth factors, modulate the immune response, and promote angiogenesis — making them key players in the tumor microenvironment.',
+          'Cancer associated fibroblasts (CAFs) are activated fibroblasts in the tumor stroma that have been reprogrammed by cancer cells to support tumor growth. They remodel the extracellular matrix, secrete growth factors, modulate the immune response, and promote angiogenesis, making them key players in the tumor microenvironment.',
       },
       {
         question: 'What role do CAFs play in tumor progression?',

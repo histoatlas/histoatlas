@@ -31,7 +31,7 @@ const decodedId = clusterId ? decodeURIComponent(clusterId) : '';
 ---
 
 <BaseLayout
-  title={`Cluster ${decodedId} — ${cohortFullName} · ${datasetDisplayName} · HistoAtlas`}
+  title={`Cluster ${decodedId} - ${cohortFullName} · ${datasetDisplayName} · HistoAtlas`}
   description={`Cluster-level phenotype view for cluster ${decodedId} in the ${datasetDisplayName} ${cohortFullName} (${displayCohort}) cohort.`}
   canonicalUrl={`/${dataset}/${displayCohort}/cluster/${encodeURIComponent(decodedId)}/`}
   breadcrumbs={[

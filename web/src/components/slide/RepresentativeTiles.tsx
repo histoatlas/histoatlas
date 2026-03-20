@@ -180,7 +180,7 @@ function RankedTileCard({ tile, slideId, maxLevel, showOverlay, featureDisplayNa
     <div className="group relative aspect-square rounded overflow-hidden bg-zinc-100">
       <img
         src={tileUrl}
-        alt={`${cancerType} histopathology tile ranked #${tile.rank} for ${featureDisplayName} — H&E stain at 0.5 µm/px`}
+        alt={`${cancerType} histopathology tile ranked #${tile.rank} for ${featureDisplayName}, H&E stain at 0.5 µm/px`}
         className="w-full h-full object-cover"
         width={224}
         height={224}

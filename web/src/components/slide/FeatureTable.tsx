@@ -190,16 +190,16 @@ export function FeatureTable({
                           {meta.displayName}
                         </span>
 
-                        {/* Right side: Value | Unit | Histogram | Percentile — fixed-width columns */}
+                        {/* Right side: Value | Unit | Histogram | Percentile (fixed-width columns) */}
                         <div className="flex items-center">
-                          {/* Value — right-aligned, fixed width */}
+                          {/* Value, right-aligned, fixed width */}
                           <span className="w-16 text-right font-mono text-zinc-600 tabular-nums">
                             {value !== null && value !== undefined
                               ? value.toFixed(3)
                               : '-'}
                           </span>
 
-                          {/* Unit — left-aligned, fixed width */}
+                          {/* Unit, left-aligned, fixed width */}
                           <span className="w-24 pl-1.5 text-left text-xs text-zinc-400">
                             {value !== null && value !== undefined && meta.unit
                               ? meta.unit

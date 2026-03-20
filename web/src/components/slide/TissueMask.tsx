@@ -6,7 +6,7 @@ const BAND_COLORS = [
   { color: 'rgb(230, 0, 0)', rgb: [230, 0, 0], label: 'Tumor front' },
   { color: 'rgb(200, 80, 80)', rgb: [200, 80, 80], label: 'Tumor core' },
   { color: 'rgb(30, 80, 180)', rgb: [30, 80, 180], label: 'Peritumoral stroma' },
-  { color: 'rgb(100, 140, 210)', rgb: [100, 140, 210], label: 'Stroma 50–200 µm' },
+  { color: 'rgb(100, 140, 210)', rgb: [100, 140, 210], label: 'Stroma 50-200 µm' },
   { color: 'rgb(180, 200, 230)', rgb: [180, 200, 230], label: 'Stroma >200 µm' },
   { color: 'rgb(180, 100, 50)', rgb: [180, 100, 50], label: 'Necrosis ring' },
   { color: 'rgb(80, 80, 80)', rgb: [80, 80, 80], label: 'Necrosis' },
@@ -159,7 +159,7 @@ export function TissueMask({ slideId, features }: TissueMaskProps) {
     <SectionCard
       title="Tissue Map"
       icon={<Icon name="layers" size={18} className="text-zinc-400" />}
-      subtitle={<>Tumor and stroma compartments identified by band-level segmentation — <a href="/methods/#spatial-regions" className="text-blue-600 hover:underline">see Methods §5</a></>}
+      subtitle={<>Tumor and stroma compartments identified by band-level segmentation. <a href="/methods/#spatial-regions" className="text-blue-600 hover:underline">see Methods §5</a></>}
     >
       {hasError ? (
         <p className="text-sm text-zinc-400 py-8 text-center">

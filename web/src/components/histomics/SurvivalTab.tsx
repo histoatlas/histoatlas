@@ -132,7 +132,7 @@ function SurvivalStatsTable({ result }: { result: HistomicsSurvivalResult }) {
         if (harmful != null || protective != null) {
           return (
             <span className="font-mono text-xs text-zinc-700">
-              {harmful != null ? `HR \u2265 ${formatHR(harmful)}` : '—'} / {protective != null ? `HR \u2264 ${formatHR(protective)}` : '—'}
+              {harmful != null ? `HR \u2265 ${formatHR(harmful)}` : '-'} / {protective != null ? `HR \u2264 ${formatHR(protective)}` : '-'}
             </span>
           );
         }
@@ -142,7 +142,7 @@ function SurvivalStatsTable({ result }: { result: HistomicsSurvivalResult }) {
     },
   ];
 
-  // Conditionally add RMST — insert after PH row when PH fails (prominent), otherwise append at end
+  // Conditionally add RMST: insert after PH row when PH fails (prominent), otherwise append at end
   if (result.rmstDifference != null) {
     const rmstRow = {
       metric: 'RMST difference',

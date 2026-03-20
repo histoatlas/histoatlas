@@ -41,7 +41,7 @@ function interpolateColor(value: number, min: number, max: number): string {
 const FEATURE_LABELS: Record<string, string> = {
   intratumoral_cancer_cell_density: 'Cancer cell density',
   invasion_depth_p75: 'Invasion depth',
-  tumor_stroma_interface_density: 'Tumor–stroma interface',
+  tumor_stroma_interface_density: 'Tumor-stroma interface',
   stroma_area_fraction: 'Stroma fraction',
   tumor_area_fraction: 'Tumor fraction',
   deep_intratumoral_lymphocyte_fraction: 'Deep TIL fraction',
@@ -252,7 +252,7 @@ export default function Figure1_EmtPanCancer_Heatmap() {
         <strong>Figure 1.</strong> Spearman correlations between HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION (EMT) pathway scores
         and histomic features across 12 TCGA cancer types. Warm tones (red) indicate negative
         correlations, cool tones (blue) indicate positive. EMT-high tumors consistently show
-        reduced intratumoral cancer cell density, greater invasion depth, and expanded tumor–stroma
+        reduced intratumoral cancer cell density, greater invasion depth, and expanded tumor-stroma
         interfaces. Grey cells indicate the correlation was not statistically significant (FDR &gt; 0.05).
         <br />
         <span style={{ color: '#6B7280', fontSize: '0.8rem' }}>

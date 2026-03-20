@@ -81,7 +81,7 @@ export function AlterationForestChart({ mutations, maxRows = 20, onRowClick, sel
           y={16}
           className="text-[11px] fill-zinc-700 font-semibold"
         >
-          Mutation Associations — Mann-Whitney U test (two-sided)
+          Mutation Associations, Mann-Whitney U test (two-sided)
         </text>
         <text
           x={width - margin.right}

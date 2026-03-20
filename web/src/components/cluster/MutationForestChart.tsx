@@ -28,7 +28,7 @@ export function MutationForestChart({ mutations }: MutationForestChartProps) {
       .range([0, innerHeight])
       .padding(0.3);
 
-    // Compute domain from data — use CIs if available, else OR values
+    // Compute domain from data: use CIs if available, else OR values
     const allValues = sorted.flatMap((m) => {
       const vals: number[] = [];
       if (m.oddsRatio != null && m.oddsRatio > 0) vals.push(m.oddsRatio);
@@ -67,7 +67,7 @@ export function MutationForestChart({ mutations }: MutationForestChartProps) {
         y={16}
         className="text-[11px] fill-zinc-700 font-semibold"
       >
-        Mutation Enrichment — Fisher's exact test (two-sided)
+        Mutation Enrichment, Fisher's exact test (two-sided)
       </text>
 
       <g transform={`translate(${margin.left}, ${margin.top})`}>

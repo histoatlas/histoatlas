@@ -24,7 +24,7 @@ interface RankedTableProps {
 }
 
 function EffectDirection({ hr }: { hr: number | null }) {
-  if (hr == null || hr <= 0) return <span className="text-xs text-zinc-400">—</span>;
+  if (hr == null || hr <= 0) return <span className="text-xs text-zinc-400">-</span>;
   const isProtective = hr < 1;
   return (
     <span className={`inline-flex items-center gap-1 text-xs font-medium ${isProtective ? 'text-blue-600' : 'text-red-600'}`}>
@@ -196,9 +196,9 @@ function SurvivalTable({
               <td className="px-4 py-2.5 font-mono text-xs text-zinc-700">
                 {row.hazardRatio != null
                   ? row.hazardRatio >= 1
-                    ? row.mdesHrHarmful != null ? `HR \u2265 ${formatHR(row.mdesHrHarmful)}` : '—'
-                    : row.mdesHrProtective != null ? `HR \u2264 ${formatHR(row.mdesHrProtective)}` : '—'
-                  : '—'}
+                    ? row.mdesHrHarmful != null ? `HR \u2265 ${formatHR(row.mdesHrHarmful)}` : '-'
+                    : row.mdesHrProtective != null ? `HR \u2264 ${formatHR(row.mdesHrProtective)}` : '-'
+                  : '-'}
               </td>
               <td className="px-4 py-2.5"><EvidenceBadge badge={row.evidenceStrengthBadge as EvidenceStrengthBadge} /></td>
             </tr>

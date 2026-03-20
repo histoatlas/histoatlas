@@ -11,6 +11,7 @@ import { ogLayout } from './templates/shared';
 import { COHORT_FULL_NAMES } from '../../data/cohortNames';
 
 const COHORT_CODES = new Set(Object.keys(COHORT_FULL_NAMES));
+const KNOWN_DATASETS = new Set(['tcga', 'cptac']);
 
 const STATIC_PAGE_META: Record<string, { title: string; subtitle: string }> = {
   about: { title: 'About HistoAtlas', subtitle: 'Why this atlas exists' },
@@ -20,7 +21,7 @@ const STATIC_PAGE_META: Record<string, { title: string; subtitle: string }> = {
 };
 
 export async function resolveTemplate(pathSegments: string[]): Promise<unknown> {
-  const [first, second, third] = pathSegments;
+  const [first, second, third, fourth] = pathSegments;
 
   // blog listing (no slug)
   if (first === 'blog' && !second) {
@@ -50,30 +51,35 @@ export async function resolveTemplate(pathSegments: string[]): Promise<unknown> 
     return geneHubTemplate(second);
   }
 
-  // Static pages (about, methods, features, mutations hub, compare)
+  // Static pages (about, methods, features, mutations hub)
   if (first && !second && STATIC_PAGE_META[first]) {
     const meta = STATIC_PAGE_META[first];
     return ogLayout({ title: meta.title, subtitle: meta.subtitle });
   }
 
-  // {COHORT}/histomics/{feature}
-  if (COHORT_CODES.has(first) && second === 'histomics' && third) {
-    return featureTemplate(first, decodeURIComponent(third));
-  }
+  // Dataset-scoped routes: {dataset}/{cohort}/...
+  // The URL pattern is /{dataset}/{cohort}/{page} where dataset is "tcga" or "cptac"
+  // and cohort is an uppercase code like "BRCA", "PANCAN", etc.
+  if (KNOWN_DATASETS.has(first) && COHORT_CODES.has(second)) {
+    // {dataset}/{cohort}/histomics/{feature}
+    if (third === 'histomics' && fourth) {
+      return featureTemplate(second, decodeURIComponent(fourth));
+    }
 
-  // {COHORT}/cluster/{id}
-  if (COHORT_CODES.has(first) && second === 'cluster' && third) {
-    return clusterTemplate(first, third);
-  }
+    // {dataset}/{cohort}/cluster/{id}
+    if (third === 'cluster' && fourth) {
+      return clusterTemplate(second, fourth);
+    }
 
-  // {COHORT}/slide/{id}
-  if (COHORT_CODES.has(first) && second === 'slide' && third) {
-    return slideTemplate(first, third);
-  }
+    // {dataset}/{cohort}/slide/{id}
+    if (third === 'slide' && fourth) {
+      return slideTemplate(second, fourth);
+    }
 
-  // {COHORT}/{page} (atlas, associations, histomics, cluster, slide index)
-  if (COHORT_CODES.has(first) && second) {
-    return cohortTemplate(first, second);
+    // {dataset}/{cohort}/{page} (atlas, associations, histomics, cluster, slide index)
+    if (third) {
+      return cohortTemplate(second, third);
+    }
   }
 
   return defaultTemplate();

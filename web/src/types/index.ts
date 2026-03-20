@@ -1,7 +1,3 @@
-// Known dataset identifiers. Use this type for function parameters that accept
-// a dataset ID to catch typos at compile time.
-export type DatasetId = 'tcga' | 'cptac';
-
 // Re-exports from sub-modules
 export type { AnalysisContext, EvidenceRef, ProvenanceMeta } from './analysis';
 export type { StatSummary, StatWarning } from './stats';
@@ -23,8 +19,6 @@ export type {
 export { WarningType } from './stats';
 export type { WarningSeverity } from './stats';
 export { survivalToStatSummary, correlationToStatSummary, categoricalToStatSummary } from './stats';
-export type { EvidenceTile, EvidenceGroup, EvidenceMode, EvidenceSelection } from './evidence';
-
 // Sort state for table
 export interface SortState {
   column: string;

@@ -45,7 +45,7 @@ export const GENE_SEO_CONTENT: Record<string, GeneSeoContent> = {
       </p>
       <h3>Clinical Significance</h3>
       <p>
-        TP53 mutation status is prognostic in many cancer types — it is associated with higher tumor
+        TP53 mutation status is prognostic in many cancer types. It is associated with higher tumor
         grade, greater genomic instability, and worse overall survival. In some contexts (e.g., AML,
         myelodysplastic syndromes), TP53 mutations define a distinct clinical entity with very poor
         outcomes. TP53 mutations are also predictive: they confer resistance to certain chemotherapy
@@ -141,7 +141,7 @@ export const GENE_SEO_CONTENT: Record<string, GeneSeoContent> = {
       {
         question: 'Can KRAS mutations be treated?',
         answer:
-          'Yes — KRAS G12C mutations can now be treated with targeted inhibitors (sotorasib, adagrasib), approved for lung cancer and under investigation in other tumor types. Inhibitors for other KRAS mutations (G12D) are in clinical trials. KRAS-mutant tumors are typically resistant to EGFR-targeted therapies.',
+          'Yes. KRAS G12C mutations can now be treated with targeted inhibitors (sotorasib, adagrasib), approved for lung cancer and under investigation in other tumor types. Inhibitors for other KRAS mutations (G12D) are in clinical trials. KRAS-mutant tumors are typically resistant to EGFR-targeted therapies.',
       },
     ],
   },
@@ -425,7 +425,7 @@ export const GENE_SEO_CONTENT: Record<string, GeneSeoContent> = {
       <p>
         <strong>IDH1</strong> (Isocitrate Dehydrogenase 1) encodes a metabolic enzyme that catalyzes the
         oxidative decarboxylation of isocitrate to &alpha;-ketoglutarate (&alpha;-KG) in the cytoplasm.
-        Oncogenic IDH1 mutations are neomorphic — rather than losing enzyme function, the mutant IDH1
+        Oncogenic IDH1 mutations are neomorphic: rather than losing enzyme function, the mutant IDH1
         gains a new activity: converting &alpha;-KG to <strong>2-hydroxyglutarate (2-HG)</strong>, an
         oncometabolite. 2-HG accumulation inhibits &alpha;-KG-dependent dioxygenases, causing widespread
         epigenetic dysregulation through DNA and histone hypermethylation.
@@ -472,12 +472,12 @@ export const GENE_SEO_CONTENT: Record<string, GeneSeoContent> = {
       {
         question: 'What is IDH1 mutation treatment?',
         answer:
-          'Vorasidenib, an oral dual IDH1/IDH2 inhibitor, was approved in 2024 for IDH-mutant grade 2 gliomas — the first targeted therapy for these tumors. Ivosidenib is approved for IDH1-mutant cholangiocarcinoma and acute myeloid leukemia. Standard glioma treatments (surgery, radiation, temozolomide) remain the backbone of care.',
+          'Vorasidenib, an oral dual IDH1/IDH2 inhibitor, was approved in 2024 for IDH-mutant grade 2 gliomas, the first targeted therapy for these tumors. Ivosidenib is approved for IDH1-mutant cholangiocarcinoma and acute myeloid leukemia. Standard glioma treatments (surgery, radiation, temozolomide) remain the backbone of care.',
       },
       {
         question: 'Does IDH1 mutation affect survival?',
         answer:
-          'Yes — IDH1 mutation is one of the strongest positive prognostic markers in gliomas. IDH-mutant lower-grade gliomas have a median survival of ~7 years, compared to ~1.5 years for IDH-wildtype glioblastoma. HistoAtlas provides survival curves comparing IDH1-mutant vs wild-type tumors across 33 TCGA cancer types.',
+          'Yes. IDH1 mutation is one of the strongest positive prognostic markers in gliomas. IDH-mutant lower-grade gliomas have a median survival of ~7 years, compared to ~1.5 years for IDH-wildtype glioblastoma. HistoAtlas provides survival curves comparing IDH1-mutant vs wild-type tumors across 33 TCGA cancer types.',
       },
     ],
   },

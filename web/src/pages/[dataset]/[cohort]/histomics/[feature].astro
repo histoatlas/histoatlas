@@ -65,9 +65,9 @@ if (seoContent) {
     ? seoContent.pancanTitle
     : seoContent.perCancerTitle(cohortFullName);
   // Append dataset for non-TCGA cohorts to disambiguate while keeping keyword front-loaded
-  pageTitle = datasetDisplayName === 'TCGA' ? baseTitle : baseTitle.replace(' | HistoAtlas', ` — ${datasetDisplayName} | HistoAtlas`);
+  pageTitle = datasetDisplayName === 'TCGA' ? baseTitle : baseTitle.replace(' | HistoAtlas', ` - ${datasetDisplayName} | HistoAtlas`);
 } else {
-  pageTitle = `${displayName} in ${cohortFullName}: Survival, Correlations & Data — ${datasetDisplayName} | HistoAtlas`;
+  pageTitle = `${displayName} in ${cohortFullName}: Survival, Correlations & Data - ${datasetDisplayName} | HistoAtlas`;
 }
 
 // --- Meta description ---
@@ -236,7 +236,7 @@ const tier1HubLabel = tier1HubName ? TIER1_HUB_LABEL[tier1HubName] : null;
         </div>
       )}
 
-      <!-- Explore by Cancer Type (PANCAN pages — all features) -->
+      <!-- Explore by Cancer Type (PANCAN pages, all features) -->
       {isPancan && (
         <div class="bg-white border border-zinc-200 rounded-lg p-5">
           <h2 class="flex items-center gap-2 text-lg font-semibold text-zinc-900 mb-3">
@@ -289,7 +289,7 @@ const tier1HubLabel = tier1HubName ? TIER1_HUB_LABEL[tier1HubName] : null;
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-400"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             See Also
           </h2>
-          <p class="text-sm text-zinc-600 mb-3">{displayName} is related to {tier1HubEntry.displayName} — explore the full cross-cancer analysis.</p>
+          <p class="text-sm text-zinc-600 mb-3">{displayName} is related to {tier1HubEntry.displayName}. Explore the full cross-cancer analysis.</p>
           <a href={`/${dataset}/PANCAN/histomics/${encodeURIComponent(tier1HubEntry.name)}/`} class="inline-flex items-center px-3 py-1.5 text-sm text-zinc-700 bg-zinc-50 border border-zinc-200 rounded-full hover:bg-zinc-100 hover:border-zinc-300 transition-colors">{tier1HubLabel}: Cross-Cancer Analysis</a>
         </div>
       )}

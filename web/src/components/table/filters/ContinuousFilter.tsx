@@ -152,7 +152,7 @@ export function ContinuousFilter({
           className="w-20 px-2 py-1 text-xs border border-zinc-200 rounded focus-ring"
           step={step}
         />
-        <span className="text-zinc-400">–</span>
+        <span className="text-zinc-400">-</span>
         <input
           type="number"
           value={localMax.toFixed(2)}

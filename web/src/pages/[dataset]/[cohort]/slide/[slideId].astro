@@ -39,7 +39,7 @@ const truncatedId = decodedId.length > 30 ? decodedId.slice(0, 30) + '\u2026' : 
 let slideData: Record<string, unknown> | null = null;
 try {
   slideData = JSON.parse(readFileSync(`public/api/${dataset}/slide/${decodedId}.json`, 'utf-8'));
-} catch { /* slide JSON missing — skip structured data */ }
+} catch { /* slide JSON missing, skip structured data */ }
 
 const cancerType = (slideData?.cancerType as string) ?? '';
 const caseId = decodedId.slice(0, 12);
@@ -70,7 +70,7 @@ const slideJsonLd: Record<string, unknown>[] = [
 ---
 
 <BaseLayout
-  title={`${cancerType || displayCohort} Slide ${caseId} — Morphology & Segmentation · ${datasetDisplayName} | HistoAtlas`}
+  title={`${cancerType || displayCohort} Slide ${caseId} - Morphology & Segmentation · ${datasetDisplayName} | HistoAtlas`}
   description={`Explore ${cancerType} H&E slide ${caseId} from ${datasetDisplayName}: ${tileCount} representative tiles, AI cell segmentation overlays, and quantitative histomic features at 0.5 µm/px resolution.`}
   canonicalUrl={`/${dataset}/${displayCohort}/slide/${encodeURIComponent(decodedId)}/`}
   breadcrumbs={[

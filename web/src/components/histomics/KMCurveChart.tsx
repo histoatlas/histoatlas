@@ -180,11 +180,11 @@ export function KMCurveChart({ curves, hazardRatio, hrCiLower, hrCiUpper, pValue
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         role="img"
-        aria-label={`Kaplan-Meier survival curve comparing ${curves.length} cancer patient groups: ${hazardRatio != null ? `hazard ratio ${formatHR(hazardRatio)} (95% CI ${formatHR(hrCiLower)}–${formatHR(hrCiUpper)}), p = ${formatP(pValueAdj ?? null)}` : `${curves.reduce((s, c) => s + c.nSamples, 0)} samples`}`}
+        aria-label={`Kaplan-Meier survival curve comparing ${curves.length} cancer patient groups: ${hazardRatio != null ? `hazard ratio ${formatHR(hazardRatio)} (95% CI ${formatHR(hrCiLower)}-${formatHR(hrCiUpper)}), p = ${formatP(pValueAdj ?? null)}` : `${curves.reduce((s, c) => s + c.nSamples, 0)} samples`}`}
       >
         {/* Chart title */}
         <text x={margin.left} y={14} className="text-[11px] fill-zinc-700 font-semibold">
-          Kaplan-Meier — Cox PH regression (two-sided)
+          Kaplan-Meier, Cox PH regression (two-sided)
         </text>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           {/* Y gridlines */}
@@ -442,7 +442,7 @@ export function KMCurveChart({ curves, hazardRatio, hrCiLower, hrCiUpper, pValue
                   </td>
                   {N_AT_RISK_TIMES.filter((t) => t <= (xScale.domain()[1] ?? 60)).map((t, i) => (
                     <td key={t} className="text-center font-mono px-1.5 py-0.5">
-                      {counts[i] != null ? counts[i] : '—'}
+                      {counts[i] != null ? counts[i] : '-'}
                     </td>
                   ))}
                 </tr>

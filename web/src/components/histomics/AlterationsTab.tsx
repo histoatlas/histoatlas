@@ -259,7 +259,7 @@ export function AlterationsTab({ dataset = 'tcga', feature, cancerType }: Altera
       {selectedRow && (
         <div ref={violinRef}>
           <SectionCard
-            title={`${selectedRow.categoricalVar.replace('mut_', '').toUpperCase()} — Mutated vs Wild-type`}
+            title={`${selectedRow.categoricalVar.replace('mut_', '').toUpperCase()}: Mutated vs Wild-type`}
             subtitle={violinSubtitle}
             icon={<Icon name="bar-chart" size={18} className="text-zinc-400" />}
           >
@@ -267,7 +267,7 @@ export function AlterationsTab({ dataset = 'tcga', feature, cancerType }: Altera
               <Skeleton className="w-full h-64" />
             ) : violinData && violinData.groups.length > 0 ? (
               <div className="max-w-[66%]">
-                <ViolinPlotChart groups={violinData.groups} yLabel={feature} title="Mutation Association — Mann-Whitney U test (two-sided)" />
+                <ViolinPlotChart groups={violinData.groups} yLabel={feature} title="Mutation Association, Mann-Whitney U test (two-sided)" />
               </div>
             ) : (
               <div className="text-sm text-zinc-500 py-8 text-center">

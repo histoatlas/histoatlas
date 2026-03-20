@@ -29,7 +29,7 @@ export function DataTablePagination({
         {totalRows > 0 ? (
           <>
             <span className="font-medium text-zinc-700">
-              {startRow.toLocaleString()}–{endRow.toLocaleString()}
+              {startRow.toLocaleString()}-{endRow.toLocaleString()}
             </span>{' '}
             of {totalRows.toLocaleString()}
           </>

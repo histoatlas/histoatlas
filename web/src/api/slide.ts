@@ -3,7 +3,7 @@ import { apiPaths } from './paths';
 
 /**
  * Fetch consolidated slide data. The static JSON includes detail, similar
- * slides, and tiles — all in one file.
+ * slides, and tiles, all in one file.
  */
 export async function fetchSlideDetail(
   dataset: string,

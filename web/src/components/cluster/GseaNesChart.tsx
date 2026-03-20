@@ -65,7 +65,7 @@ export function GseaNesChart({ gsea }: GseaNesChartProps) {
         y={16}
         className="text-[11px] fill-zinc-700 font-semibold"
       >
-        Gene Set Enrichment — Top 10 by absolute NES
+        Gene Set Enrichment, Top 10 by absolute NES
       </text>
 
       <g transform={`translate(${margin.left}, ${margin.top})`}>

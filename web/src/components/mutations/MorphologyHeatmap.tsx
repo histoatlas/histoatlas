@@ -137,7 +137,7 @@ export function MorphologyHeatmap({ data, gene }: MorphologyHeatmapProps) {
                       fontFamily="system-ui, sans-serif"
                       fontWeight={sig ? 600 : 400}
                     >
-                      {es != null ? es.toFixed(2) : '—'}
+                      {es != null ? es.toFixed(2) : '-'}
                     </text>
                   </g>
                 );
@@ -187,7 +187,7 @@ export function MorphologyHeatmap({ data, gene }: MorphologyHeatmapProps) {
         indicates higher feature values in mutant samples.
         <br />
         <span className="text-xs text-zinc-500">
-          Data: HistoAtlas / TCGA. Mann–Whitney U test, Cliff&apos;s delta, BH correction
+          Data: HistoAtlas / TCGA. Mann-Whitney U test, Cliff&apos;s delta, BH correction
           (p &lt; 0.05).
         </span>
       </figcaption>

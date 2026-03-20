@@ -275,7 +275,7 @@ function GseaTable({ gsea }: { gsea: GseaEnrichment[] }) {
             <th className="px-4 py-2.5 text-right text-xs font-medium text-zinc-500 uppercase tracking-wide">
               <span className="inline-flex items-center justify-end gap-1">
                 Leading Edge
-                <InfoTooltip text="Number of genes in the leading-edge subset — the core genes driving the enrichment score" />
+                <InfoTooltip text="Number of genes in the leading-edge subset: the core genes driving the enrichment score" />
               </span>
             </th>
             <th className="px-4 py-2.5" />

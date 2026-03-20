@@ -10,6 +10,5 @@ export { TabNav } from './TabNav';
 export { ProvenanceBar } from './ProvenanceBar';
 export { StatsCard } from './StatsCard';
 export { AssumptionChecks } from './AssumptionChecks';
-export { EvidencePanel } from './EvidencePanel';
 export { ExportActions } from './ExportActions';
 export { EvidenceBadge } from './EvidenceBadge';

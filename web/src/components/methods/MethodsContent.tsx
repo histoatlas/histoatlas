@@ -400,7 +400,7 @@ export function MethodsContent() {
       <TableOfContents />
 
       {/* ============================================================= */}
-      {/*  PART A — IMAGE ANALYSIS PIPELINE                             */}
+      {/*  PART A: IMAGE ANALYSIS PIPELINE                               */}
       {/* ============================================================= */}
       <PartDivider label="Image Analysis Pipeline" />
 
@@ -413,9 +413,9 @@ export function MethodsContent() {
         The Cancer Genome Atlas (TCGA). It integrates 38 quantitative histomics features
         extracted from hematoxylin-and-eosin (H&E) whole-slide images with clinical, genomic,
         and molecular annotations. The analysis pipeline has three stages: (1) cell and tissue
-        segmentation from H&E whole-slide images (§3–§4), (2) spatial region definition and
-        histomics feature extraction (§5), and (3) statistical analysis of feature–outcome
-        associations (§6–§17). The platform provides a suite of statistical analyses:
+        segmentation from H&E whole-slide images (§3-§4), (2) spatial region definition and
+        histomics feature extraction (§5), and (3) statistical analysis of feature-outcome
+        associations (§6-§17). The platform provides a suite of statistical analyses:
         survival modelling, correlation analysis, categorical association testing, gene set
         enrichment, and unsupervised clustering, all designed to characterise how tissue
         morphology relates to patient outcomes and tumour biology across 24 cancer types.
@@ -457,7 +457,7 @@ export function MethodsContent() {
         mutation calls originate from the MC3 multi-caller ensemble (<a href="https://doi.org/10.1016/j.cels.2018.03.002" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Ellrott et al., 2018</a>).
         Immune cell fraction estimates are obtained from CIBERSORT (<a href="https://doi.org/10.1038/nmeth.3337" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Newman et al., 2015</a>)
         and xCell (<a href="https://doi.org/10.1186/s13059-017-1349-1" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Aran et al., 2017</a>). Tumour purity is estimated by ABSOLUTE (<a href="https://doi.org/10.1038/nbt.2203" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Carter et al.,
-        2012</a>). Immune subtypes (C1–C6) are taken from the pan-cancer immune landscape
+        2012</a>). Immune subtypes (C1-C6) are taken from the pan-cancer immune landscape
         analysis of <a href="https://doi.org/10.1016/j.immuni.2018.03.023" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Thorsson et al. (2018)</a>, which classified TCGA samples into six
         categories: wound healing (C1), IFN-&gamma; dominant (C2), inflammatory (C3),
         lymphocyte depleted (C4), immunologically quiet (C5), and TGF-&beta; dominant
@@ -572,7 +572,7 @@ export function MethodsContent() {
       <SectionHeading id="spatial-regions" number={5} title="Spatial Region Definition" />
       <p>
         Histomics features are computed within spatially defined regions (bands) that
-        capture the tumour–stroma interface at biologically meaningful scales.
+        capture the tumour-stroma interface at biologically meaningful scales.
         Let <Eq tex="\Omega \subset \mathbb{R}^2" /> denote the full tissue domain of a
         whole-slide image, discretised on a regular pixel
         lattice at resolution <Eq tex="r = 8\;\mu\text{m/px}" />. All spatial computations
@@ -620,7 +620,7 @@ export function MethodsContent() {
         convention, <Eq tex="d_T(x) > 0" /> inside the tumour
         and <Eq tex="d_T(x) < 0" /> outside; pixels exactly on the
         boundary satisfy <Eq tex="d_T(x) = 0" />. This transform is the basis for defining
-        the four tumour–stroma bands below.
+        the four tumour-stroma bands below.
       </p>
       <p className="mt-3">
         Analogously, for
@@ -649,7 +649,7 @@ export function MethodsContent() {
         are then computed per band, so the tissue composition within each band is resolved
         at the feature level rather than the band definition level.
         The necrosis ring <Eq tex="R_{\text{Nec}}^{0\text{-}100}" /> may overlap
-        with any of the four tumour–stroma bands.
+        with any of the four tumour-stroma bands.
       </p>
       <div className="my-4 overflow-x-auto">
         <table className="w-full text-sm">
@@ -760,11 +760,11 @@ export function MethodsContent() {
         <li>
           <strong>50&nbsp;&mu;m front band</strong>: approximately 5 cell diameters
           (typical epithelial cell diameter &asymp; 10&nbsp;&mu;m), capturing the invasive
-          margin zone where tumour–stroma interactions are most active
+          margin zone where tumour-stroma interactions are most active
         </li>
         <li>
           <strong>200&nbsp;&mu;m stroma far cutoff</strong>: beyond this distance,
-          tumour–stroma interaction effects attenuate, as shown by spatial analyses of
+          tumour-stroma interaction effects attenuate, as shown by spatial analyses of
           immune cell infiltration gradients (<a href="https://doi.org/10.1016/j.celrep.2018.03.086" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Saltz et al., 2018</a>; <a href="https://doi.org/10.1016/j.cell.2018.08.039" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Keren et al., 2018</a>)
         </li>
         <li>
@@ -784,7 +784,7 @@ export function MethodsContent() {
       </ul>
 
       {/* ============================================================= */}
-      {/*  PART B — STATISTICAL METHODS                                  */}
+      {/*  PART B: STATISTICAL METHODS                                    */}
       {/* ============================================================= */}
       <PartDivider label="Statistical Methods" />
 

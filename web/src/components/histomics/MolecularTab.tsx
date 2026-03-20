@@ -265,7 +265,7 @@ export function MolecularTab({ dataset = 'tcga', feature, cancerType }: Molecula
                 <ViolinPlotChart
                   groups={violinData.groups}
                   yLabel={feature}
-                  title={`Immune Subtype — ${testLabel ?? 'Kruskal-Wallis'} test`}
+                  title={`Immune Subtype, ${testLabel ?? 'Kruskal-Wallis'} test`}
                 />
               </div>
               {immuneSubtypeTest && (

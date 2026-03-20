@@ -101,7 +101,7 @@ export default function Figure3_BrcaCnvTop_BarChart() {
           lineHeight: 1.5,
         }}
       >
-        <strong>Figure 3.</strong> Top CNV–mitotic index correlations in breast cancer.
+        <strong>Figure 3.</strong> Top CNV-mitotic index correlations in breast cancer.
         Oncogene amplification (<em>MYC</em>, <em>ALK</em>, <em>MSH2</em>; orange) correlates
         with higher mitotic activity, while tumor suppressor and immune gene copy number
         loss (<em>CCNB1</em>, <em>APC</em>, <em>GZMA</em>; blue) shows the opposite pattern.

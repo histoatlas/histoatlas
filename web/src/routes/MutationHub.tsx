@@ -26,13 +26,13 @@ export function MutationHub({ gene }: MutationHubProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-6 space-y-6">
-      {/* Morphology heatmap — full width */}
+      {/* Morphology heatmap, full width */}
       <SectionCard
         title="Morphology Associations Across Cancer Types"
         subtitle="Top 5 histomic features by mean |Cliff's δ| across cohorts"
         icon={<Icon name="grid-3x3" size={18} className="text-zinc-400" />}
         badge={
-          <InfoTooltip text="Cliff's delta measures the probability that a randomly chosen mutant sample has a higher feature value than a randomly chosen wild-type sample. Values range from −1 to +1. Effect sizes are computed per cohort using the Mann–Whitney U test with Benjamini–Hochberg correction." />
+          <InfoTooltip text="Cliff's delta measures the probability that a randomly chosen mutant sample has a higher feature value than a randomly chosen wild-type sample. Values range from −1 to +1. Effect sizes are computed per cohort using the Mann-Whitney U test with Benjamini-Hochberg correction." />
         }
       >
         {isLoadingHeatmap ? (

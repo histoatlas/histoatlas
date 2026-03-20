@@ -50,7 +50,7 @@ export const apiPaths = {
   // Sample data (for client-side scatter/violin)
   sampleData: (dataset: string, cancer: string) => `/api/${dataset}/sample-data/${cancer}.json`,
 
-  // Mutations (global — not dataset-scoped)
+  // Mutations (global, not dataset-scoped)
   mutationGenes: () => '/api/mutations/genes.json',
   mutationOverview: (gene: string) => `/api/mutations/${gene}/overview.json`,
   mutationMorphologyHeatmap: (gene: string) =>

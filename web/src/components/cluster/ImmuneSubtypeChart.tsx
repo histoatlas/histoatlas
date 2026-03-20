@@ -284,7 +284,7 @@ export function ImmuneSubtypeChart({
               <span className="text-zinc-400">Expected</span>
               <span>{hoveredEntry.expected.toFixed(1)}</span>
               <span className="text-zinc-400">Odds ratio</span>
-              <span>{formatOR(hoveredEntry.oddsRatio)} ({formatOR(hoveredEntry.orCiLower)}–{formatOR(hoveredEntry.orCiUpper)})</span>
+              <span>{formatOR(hoveredEntry.oddsRatio)} ({formatOR(hoveredEntry.orCiLower)}-{formatOR(hoveredEntry.orCiUpper)})</span>
               <span className="text-zinc-400">Fisher p (adj)</span>
               <span>{formatP(hoveredEntry.pValueAdj)}</span>
             </div>

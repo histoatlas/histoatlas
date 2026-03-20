@@ -125,7 +125,7 @@ export function SurvivalForestChart({ results, pancan }: SurvivalForestChartProp
           />
         )}
 
-        {/* HR point or PANCAN diamond — sized by sample count */}
+        {/* HR point or PANCAN diamond, sized by sample count */}
         {hr != null && hr > 0 && (
           isPancan ? (
             <polygon
@@ -181,7 +181,7 @@ export function SurvivalForestChart({ results, pancan }: SurvivalForestChartProp
           dominantBaseline="middle"
           className="text-[9px] fill-zinc-500 font-mono"
         >
-          {r.concordance != null ? formatNum(r.concordance) : '—'}
+          {r.concordance != null ? formatNum(r.concordance) : '-'}
         </text>
 
         {/* Hit area */}
@@ -217,7 +217,7 @@ export function SurvivalForestChart({ results, pancan }: SurvivalForestChartProp
           y={16}
           className="text-[11px] fill-zinc-700 font-semibold"
         >
-          Hazard Ratio by Cancer Type — Cox PH (two-sided, median split)
+          Hazard Ratio by Cancer Type, Cox PH (two-sided, median split)
         </text>
         <text
           x={width - margin.right}

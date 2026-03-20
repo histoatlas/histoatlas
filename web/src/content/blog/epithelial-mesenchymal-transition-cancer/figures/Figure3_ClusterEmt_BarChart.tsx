@@ -188,7 +188,7 @@ export default function Figure3_ClusterEmt_BarChart() {
         }}
       >
         <strong>Figure 3.</strong> Hallmark EMT pathway score enrichment across 10 pan-cancer morphology
-        clusters (L1). Cluster 8 (BRCA-enriched, high tumor–stroma interface) shows the strongest
+        clusters (L1). Cluster 8 (BRCA-enriched, high tumor-stroma interface) shows the strongest
         EMT enrichment (p &lt; 10⁻³⁰), while Cluster 4 (immune-hot, THYM-enriched) and Cluster 6
         (COAD-enriched) are the most EMT-depleted. Faded bars indicate non-significant enrichment
         (FDR &gt; 0.05). Enrichment is computed as the difference in mean Hallmark EMT pathway score between

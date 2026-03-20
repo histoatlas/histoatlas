@@ -18,12 +18,12 @@ interface GeneCorrelation {
 }
 
 const DATA: GeneCorrelation[] = [
-  { gene: 'ZEB1', feature: 'tumor_stroma_interface_density', featureLabel: 'Tumor–stroma interface', rho: 0.45 },
+  { gene: 'ZEB1', feature: 'tumor_stroma_interface_density', featureLabel: 'Tumor-stroma interface', rho: 0.45 },
   { gene: 'ZEB1', feature: 'tumor_front_fraction', featureLabel: 'Tumor front fraction', rho: 0.45 },
   { gene: 'ZEB1', feature: 'stroma_area_fraction', featureLabel: 'Stroma fraction', rho: 0.42 },
   { gene: 'VIM', feature: 'lymphocyte_infiltration_ratio_front', featureLabel: 'Lymphocyte infiltration', rho: 0.31 },
   { gene: 'SNAI1', feature: 'intratumoral_cancer_cell_density', featureLabel: 'Cancer cell density', rho: -0.29 },
-  { gene: 'TWIST1', feature: 'tumor_stroma_interface_density', featureLabel: 'Tumor–stroma interface', rho: 0.26 },
+  { gene: 'TWIST1', feature: 'tumor_stroma_interface_density', featureLabel: 'Tumor-stroma interface', rho: 0.26 },
   { gene: 'TWIST1', feature: 'stroma_area_fraction', featureLabel: 'Stroma fraction', rho: 0.26 },
   { gene: 'FN1', feature: 'tumor_front_fraction', featureLabel: 'Tumor front fraction', rho: 0.26 },
   { gene: 'CDH1', feature: 'lymphocyte_infiltration_ratio_front', featureLabel: 'Lymphocyte infiltration', rho: -0.26 },

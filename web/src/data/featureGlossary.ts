@@ -33,7 +33,7 @@ export type NotationCategory = {
   entries: NotationEntry[];
 };
 
-/** Shared notation legend — defines every symbol used across all 38 formulas. */
+/** Shared notation legend: defines every symbol used across all 38 formulas. */
 export const NOTATION_LEGEND: NotationCategory[] = [
   {
     label: 'Spatial domains',

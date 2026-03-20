@@ -1,6 +1,6 @@
 ---
 title: "Copy Number Variation in Cancer: From DNA to Morphology"
-description: "How copy number variation drives cancer via gene amplification and deletion — with CNV-morphology correlations across 9,000+ TCGA samples on HistoAtlas."
+description: "How copy number variation drives cancer via gene amplification and deletion, with CNV-morphology correlations across 9,000+ TCGA samples on HistoAtlas."
 pubDate: "2026-03-02"
 updatedDate: ""
 keywords:
@@ -24,7 +24,7 @@ faq:
   - question: "What is copy number variation?"
     answer: "Copy number variation (CNV) refers to structural changes in the genome where segments of DNA are duplicated (amplified) or lost (deleted) compared to a reference. In cancer, CNVs can activate oncogenes through amplification or disable tumor suppressors through deletion, driving tumor growth and shaping how tumors look under the microscope."
   - question: "How does copy number variation affect cancer?"
-    answer: "CNV drives cancer by altering gene dosage. Amplification of oncogenes like MYC and ERBB2 (HER2) increases their expression, fueling proliferation. Deletion of tumor suppressors like CDKN2A removes growth brakes. These genomic changes produce measurable effects on tumor morphology — including higher mitotic rates, larger nuclei, and altered stromal architecture — which HistoAtlas quantifies across 21 TCGA cancer types."
+    answer: "CNV drives cancer by altering gene dosage. Amplification of oncogenes like MYC and ERBB2 (HER2) increases their expression, fueling proliferation. Deletion of tumor suppressors like CDKN2A removes growth brakes. These genomic changes produce measurable effects on tumor morphology (including higher mitotic rates, larger nuclei, and altered stromal architecture) which HistoAtlas quantifies across 21 TCGA cancer types."
   - question: "What is a copy number variation assay?"
     answer: "A copy number variation assay is a laboratory method that detects DNA gains and losses across the genome. Common assays include SNP microarrays (such as the Affymetrix SNP6.0 used by TCGA), array CGH, and whole-genome sequencing."
 ---
@@ -36,14 +36,14 @@ import Callout from '../../../components/blog/Callout.astro';
 import DataHighlight from '../../../components/blog/DataHighlight.astro';
 import InternalLink from '../../../components/blog/InternalLink.astro';
 
-A single gene gaining extra copies can transform a slow-growing tumor into an aggressive one — yet most cancer data portals treat copy number variation as a column in a spreadsheet, disconnected from what pathologists actually see under the microscope. HistoAtlas bridges that gap, quantifying how CNV reshapes tumor morphology across 6,745 samples and 21 TCGA cancer types.
+A single gene gaining extra copies can transform a slow-growing tumor into an aggressive one, yet most cancer data portals treat copy number variation as a column in a spreadsheet, disconnected from what pathologists actually see under the microscope. HistoAtlas bridges that gap, quantifying how CNV reshapes tumor morphology across 6,745 samples and 21 TCGA cancer types.
 
 ## What Is Copy Number Variation?
 
 Copy number variation (CNV) describes structural changes in the genome where segments of DNA are duplicated or deleted relative to a reference. Unlike point mutations that alter a single nucleotide, CNVs span kilobases to entire chromosome arms and change the *dosage* of every gene within the affected region.
 
 <Callout type="key-concept">
-  **Copy number variation (CNV)**: A structural alteration where a DNA segment is present in more or fewer copies than normal. **Amplification** means extra copies (gain); **deletion** means fewer copies (loss). CNV affects gene dosage — more copies typically means more protein, fewer copies means less.
+  **Copy number variation (CNV)**: A structural alteration where a DNA segment is present in more or fewer copies than normal. **Amplification** means extra copies (gain); **deletion** means fewer copies (loss). CNV affects gene dosage: more copies typically means more protein, fewer copies means less.
 </Callout>
 
 In normal human genomes, CNVs are common and mostly benign. In cancer, they become a dominant mutational force. A landmark analysis of 3,131 tumor specimens found that somatic copy number alterations affect a greater portion of the cancer genome than any other type of genetic alteration [1]. More recently, an analysis of 9,873 cancers across 33 TCGA types identified 21 distinct copy number signatures, attributing them to mechanisms like whole-genome doubling, chromothripsis, and homologous recombination deficiency [2].
@@ -56,15 +56,15 @@ Amplification of oncogenes increases their expression, flooding cells with growt
 
 ***MYC*** is one of the most frequently amplified oncogenes across human cancers [3]. It encodes a transcription factor that activates programs for cell proliferation, metabolism, and genomic instability. *MYC* amplification is found across breast, lung, ovarian, and colorectal cancers, and consistently associates with aggressive tumor behavior.
 
-***ERBB2*** (HER2) amplification in breast cancer is the canonical success story of translational oncology. Identified in the 1980s as a predictor of poor survival [4], HER2 amplification was later shown to define a molecular subtype and became the target for trastuzumab and subsequent HER2-directed therapies. Approximately 15–20% of breast cancers carry *ERBB2* amplification.
+***ERBB2*** (HER2) amplification in breast cancer is the canonical success story of translational oncology. Identified in the 1980s as a predictor of poor survival [4], HER2 amplification was later shown to define a molecular subtype and became the target for trastuzumab and subsequent HER2-directed therapies. Approximately 15-20% of breast cancers carry *ERBB2* amplification.
 
-On the deletion side, tumor suppressor loss removes the brakes on proliferation. ***CDKN2A*** (encoding p16INK4a) is among the most frequently deleted genes in human cancer, with loss-of-function reported in over 35 tumor types [5]. ***RB1*** deletion disables the retinoblastoma checkpoint, allowing uncontrolled cell cycle progression, and is recurrent in small cell lung cancer, bladder cancer, and retinoblastoma. These deletions rarely occur in isolation — they tend to co-occur with oncogene amplification, compounding the proliferative advantage.
+On the deletion side, tumor suppressor loss removes the brakes on proliferation. ***CDKN2A*** (encoding p16INK4a) is among the most frequently deleted genes in human cancer, with loss-of-function reported in over 35 tumor types [5]. ***RB1*** deletion disables the retinoblastoma checkpoint, allowing uncontrolled cell cycle progression, and is recurrent in small cell lung cancer, bladder cancer, and retinoblastoma. These deletions rarely occur in isolation; they tend to co-occur with oncogene amplification, compounding the proliferative advantage.
 
-But what does amplification actually *look like* in the tissue? The bridge between genotype and phenotype — between a gene gaining copies and a tumor changing its architecture — is exactly what HistoAtlas quantifies.
+But what does amplification actually *look like* in the tissue? The bridge between genotype and phenotype (between a gene gaining copies and a tumor changing its architecture) is exactly what HistoAtlas quantifies.
 
 ## Copy Number Variation Analysis: From DNA to Tissue Architecture
 
-Detecting CNV requires a copy number variation assay — typically SNP microarrays, array comparative genomic hybridization (aCGH), or whole-genome sequencing. TCGA used Affymetrix SNP6.0 arrays to profile copy number across its pan-cancer cohort, providing gene-level gain/loss calls for thousands of samples.
+Detecting CNV requires a copy number variation assay, typically SNP microarrays, array comparative genomic hybridization (aCGH), or whole-genome sequencing. TCGA used Affymetrix SNP6.0 arrays to profile copy number across its pan-cancer cohort, providing gene-level gain/loss calls for thousands of samples.
 
 HistoAtlas takes these assay results a step further. It computes Spearman rank correlations between gene-level copy number and 38 histomic features extracted from H&E-stained whole-slide images. Each correlation is adjusted for multiple testing using the Benjamini-Hochberg procedure, with effect size and confidence intervals reported alongside statistical significance.
 
@@ -72,11 +72,11 @@ HistoAtlas takes these assay results a step further. It computes Spearman rank c
   **How HistoAtlas measures CNV-morphology associations**: For each gene × histomic feature pair, a Spearman correlation quantifies the monotonic relationship between copy number (from SNP array or WGS) and the morphology metric. All p-values are FDR-corrected (q-values). Results are classified as "strong" (|ρ| ≥ 0.3, q < 0.01) or "moderate" (|ρ| ≥ 0.2, q < 0.05).
 </Callout>
 
-The results reveal that copy number variation doesn't just live in sequencing data — it leaves a visible imprint on tissue morphology.
+The results reveal that copy number variation doesn't just live in sequencing data. It leaves a visible imprint on tissue morphology.
 
 ## *MYC* Amplification Reshapes Breast Cancer Morphology
 
-In TCGA breast cancer (n = 957), *MYC* copy number correlates significantly with 17 histomic features after FDR correction. The strongest association is with tumor pleomorphism index — the composite measure of how variable and aberrant tumor cell shapes are.
+In TCGA breast cancer (n = 957), *MYC* copy number correlates significantly with 17 histomic features after FDR correction. The strongest association is with tumor pleomorphism index, the composite measure of how variable and aberrant tumor cell shapes are.
 
 <Figure1 client:load />
 
@@ -86,13 +86,13 @@ The pattern is biologically coherent. *MYC* amplification correlates positively 
 <DataHighlight metric="+0.27" label="Spearman ρ" context="nuclear area" />.
 These associations match what is known about *MYC*'s role in driving cell cycle entry and genomic instability [3]. Tumors with more *MYC* copies have cells that divide faster, grow larger, and exhibit greater shape variation.
 
-Conversely, *MYC* amplification correlates negatively with stromal features — lower stroma area fraction (ρ = −0.23) and reduced tumor-stroma interface density (ρ = −0.23). This suggests that *MYC*-amplified tumors expand their epithelial compartment at the expense of surrounding stroma, consistent with the growth-dominant phenotype described in transcriptomic studies.
+Conversely, *MYC* amplification correlates negatively with stromal features: lower stroma area fraction (ρ = −0.23) and reduced tumor-stroma interface density (ρ = −0.23). This suggests that *MYC*-amplified tumors expand their epithelial compartment at the expense of surrounding stroma, consistent with the growth-dominant phenotype described in transcriptomic studies.
 
 ### *ERBB2* (HER2): The Surprising Subtlety
 
-Given HER2's outsized clinical importance, one might expect *ERBB2* copy number to dominate the morphology correlation landscape in breast cancer. It doesn't. HistoAtlas data shows that *ERBB2* CNV reaches significance across 21 histomic features, but with modest effect sizes — the strongest correlation is only ρ = −0.15. This is substantially weaker than *MYC*'s peak of ρ = +0.34.
+Given HER2's outsized clinical importance, one might expect *ERBB2* copy number to dominate the morphology correlation landscape in breast cancer. It doesn't. HistoAtlas data shows that *ERBB2* CNV reaches significance across 21 histomic features, but with modest effect sizes. The strongest correlation is only ρ = −0.15. This is substantially weaker than *MYC*'s peak of ρ = +0.34.
 
-The explanation is likely biological: HER2-amplified tumors represent a relatively homogeneous subtype (~15–20% of breast cancers) with a distinctive but consistent morphology. *MYC* amplification, by contrast, cuts across subtypes and creates a wider spectrum of morphological variation, producing stronger correlations in a pan-subtype analysis. Explore HER2 amplification data in breast cancer on the <InternalLink href="/tcga/BRCA/associations?feature=mitotic_index_tumor&tab=molecular" label="BRCA molecular correlations page" />.
+The explanation is likely biological: HER2-amplified tumors represent a relatively homogeneous subtype (~15-20% of breast cancers) with a distinctive but consistent morphology. *MYC* amplification, by contrast, cuts across subtypes and creates a wider spectrum of morphological variation, producing stronger correlations in a pan-subtype analysis. Explore HER2 amplification data in breast cancer on the <InternalLink href="/tcga/BRCA/associations?feature=mitotic_index_tumor&tab=molecular" label="BRCA molecular correlations page" />.
 
 ## Copy Number Variation in Cancer: Different Genes, Different Cancer Types
 
@@ -100,35 +100,35 @@ If CNV-morphology relationships were universal, the same genes would top the cor
 
 <Figure2 client:visible />
 
-In breast and lung cancer, *CCNB1* copy number (encoding cyclin B1, a mitotic regulator) shows the strongest inverse correlation with mitotic index — an unexpected direction given that *CCNB1* expression typically tracks with proliferation. This paradox may reflect the genomic context of the *CCNB1* locus (5q13) rather than a direct causal relationship: copy number changes at this region may be enriched in tumor subtypes with distinct proliferative profiles. In bladder cancer, *EGFR* copy number drives mitotic activity positively (ρ = +0.28), consistent with the EGFR-driven proliferative programs well-characterized in urothelial tumors. In colon cancer, *SNAI1* (a key EMT transcription factor) leads the CNV associations (ρ = +0.27), pointing to the role of EMT-linked copy number changes in colorectal cancer biology.
+In breast and lung cancer, *CCNB1* copy number (encoding cyclin B1, a mitotic regulator) shows the strongest inverse correlation with mitotic index, an unexpected direction given that *CCNB1* expression typically tracks with proliferation. This paradox may reflect the genomic context of the *CCNB1* locus (5q13) rather than a direct causal relationship: copy number changes at this region may be enriched in tumor subtypes with distinct proliferative profiles. In bladder cancer, *EGFR* copy number drives mitotic activity positively (ρ = +0.28), consistent with the EGFR-driven proliferative programs well-characterized in urothelial tumors. In colon cancer, *SNAI1* (a key EMT transcription factor) leads the CNV associations (ρ = +0.27), pointing to the role of EMT-linked copy number changes in colorectal cancer biology.
 
 This heterogeneity matters. A copy number variation analysis that works in breast cancer cannot be assumed to generalize to bladder or colon. The tissue context determines which CNVs are selected for and which morphological consequences emerge.
 
-## The Oncogene–Suppressor Divide in Breast Cancer
+## The Oncogene-Suppressor Divide in Breast Cancer
 
 Looking at the top CNV correlates of mitotic index in BRCA reveals a clean separation between oncogene amplification and tumor suppressor biology.
 
 <Figure3 client:visible />
 
-On the amplification side, *MYC* (ρ = +0.31) and *ALK* (ρ = +0.25) copy number gains associate with higher mitotic rates. On the deletion side, *APC* (ρ = −0.33) shows an inverse correlation — tumors with fewer *APC* copies tend to have higher mitotic activity, consistent with the loss of Wnt pathway regulation. Immune-related genes *GZMA* (ρ = −0.31) and *HAVCR2* (ρ = −0.30) also show inverse correlations, though these likely reflect tumor cellularity rather than genuine gene deletion: highly proliferative tumors have greater tumor purity in bulk genomic data, which appears as reduced copy number of immune-cell-expressed genes.
+On the amplification side, *MYC* (ρ = +0.31) and *ALK* (ρ = +0.25) copy number gains associate with higher mitotic rates. On the deletion side, *APC* (ρ = −0.33) shows an inverse correlation: tumors with fewer *APC* copies tend to have higher mitotic activity, consistent with the loss of Wnt pathway regulation. Immune-related genes *GZMA* (ρ = −0.31) and *HAVCR2* (ρ = −0.30) also show inverse correlations, though these likely reflect tumor cellularity rather than genuine gene deletion: highly proliferative tumors have greater tumor purity in bulk genomic data, which appears as reduced copy number of immune-cell-expressed genes.
 
 <Callout type="clinical-note">
-  **Clinical relevance**: Both oncogene amplification (*MYC*) and tumor suppressor deletion (*APC*) independently associate with high mitotic morphology in breast cancer — illustrating distinct genomic routes to aggressive tumor biology [1]. Notably, *MYC* and *APC* alterations tend to be mutually exclusive across tumors, since *MYC* acts downstream of the Wnt pathway that *APC* normally restrains. This morphological convergence from different genomic origins could serve as a tissue-level readout of underlying proliferative drive.
+  **Clinical relevance**: Both oncogene amplification (*MYC*) and tumor suppressor deletion (*APC*) independently associate with high mitotic morphology in breast cancer, illustrating distinct genomic routes to aggressive tumor biology [1]. Notably, *MYC* and *APC* alterations tend to be mutually exclusive across tumors, since *MYC* acts downstream of the Wnt pathway that *APC* normally restrains. This morphological convergence from different genomic origins could serve as a tissue-level readout of underlying proliferative drive.
 </Callout>
 
-The *CDKN2A* tumor suppressor, one of the most commonly deleted genes across cancer types [5], did not reach significance in the breast cancer analysis — a reminder that not every canonical cancer gene leaves a detectable morphological trace in every tissue context. This negative result is itself informative: it suggests that *CDKN2A* loss in breast cancer may operate through pathways (cell cycle checkpoint evasion) that alter growth kinetics without producing the dramatic morphological changes that HistoAtlas's feature set is designed to capture.
+The *CDKN2A* tumor suppressor, one of the most commonly deleted genes across cancer types [5], did not reach significance in the breast cancer analysis, a reminder that not every canonical cancer gene leaves a detectable morphological trace in every tissue context. This negative result is itself informative: it suggests that *CDKN2A* loss in breast cancer may operate through pathways (cell cycle checkpoint evasion) that alter growth kinetics without producing the dramatic morphological changes that HistoAtlas's feature set is designed to capture.
 
 ## Beyond Single Genes: The Broader CNV Landscape
 
 The correlations shown here represent one layer of HistoAtlas's copy number variation analysis capability. The full dataset includes CNV correlations for over 50 cancer-relevant genes across all 21 cancer types, spanning immune markers (*GZMA*, *CD14*, *HAVCR2*), receptor tyrosine kinases (*EGFR*, *MET*, *ALK*), cell cycle regulators (*CCNB1*, *E2F1*, *AURKA*), and EMT drivers (*SNAI1*).
 
-Deep learning has independently confirmed that tumor histology and copy number profiles are linked — models trained on H&E images can predict broad copy number patterns from morphology alone [6]. HistoAtlas extends this principle by providing interpretable, gene-level quantification: not just that morphology predicts CNV, but *which specific genes* drive *which specific morphological changes* in *which cancer types*.
+Deep learning has independently confirmed that tumor histology and copy number profiles are linked. Models trained on H&E images can predict broad copy number patterns from morphology alone [6]. HistoAtlas extends this principle by providing interpretable, gene-level quantification: not just that morphology predicts CNV, but *which specific genes* drive *which specific morphological changes* in *which cancer types*.
 
 ## Explore CNV-Morphology Data on HistoAtlas
 
 Every correlation described in this article is queryable and interactive on HistoAtlas. To explore:
 
-- **Single gene**: Select any histomic feature, choose the "Molecular" tab, and filter by CNV to see gene-level copy number correlations with confidence intervals and effect sizes — for example, <InternalLink href="/tcga/BRCA/associations?feature=mitotic_index_tumor&tab=molecular" label="mitotic index CNV correlations in breast cancer" />
+- **Single gene**: Select any histomic feature, choose the "Molecular" tab, and filter by CNV to see gene-level copy number correlations with confidence intervals and effect sizes. For example, <InternalLink href="/tcga/BRCA/associations?feature=mitotic_index_tumor&tab=molecular" label="mitotic index CNV correlations in breast cancer" />
 - **Cross-cancer**: Compare how a gene's CNV-morphology correlation varies across cancer types using the <InternalLink href="/tcga/PANCAN/atlas" label="Atlas view" />
 - **Feature-centric**: Start from a morphology feature (e.g., <InternalLink href="/tcga/BRCA/associations?feature=tumor_pleomorphism_index&tab=molecular" label="pleomorphism index in BRCA" />) and discover which CNVs most strongly shape it
 
@@ -146,7 +146,7 @@ CNV drives cancer by altering gene dosage. Amplification of oncogenes like *MYC*
 
 ### What is the copy number variation definition?
 
-By definition, copy number variation is a structural genomic alteration in which a DNA segment is present in a different number of copies than the reference genome. This includes both gains (amplifications, duplications) and losses (deletions). In cancer, somatic CNVs — acquired during tumor evolution rather than inherited — alter gene dosage and drive disease progression.
+By definition, copy number variation is a structural genomic alteration in which a DNA segment is present in a different number of copies than the reference genome. This includes both gains (amplifications, duplications) and losses (deletions). In cancer, somatic CNVs (acquired during tumor evolution rather than inherited) alter gene dosage and drive disease progression.
 
 ### What is a copy number variation assay?
 
@@ -160,9 +160,9 @@ Copy number variation analysis quantifies gains and losses of DNA segments acros
 
 ## References
 
-1. Beroukhim R, Mermel CH, Porter D et al. [The landscape of somatic copy-number alteration across human cancers](https://doi.org/10.1038/nature08822). *Nature*, 2010; 463:899–905.
-2. Steele CD, Abbasi A, Islam SMA et al. [Signatures of copy number alterations in human cancer](https://doi.org/10.1038/s41586-022-04738-6). *Nature*, 2022; 606:984–991.
-3. Dang CV. [MYC on the path to cancer](https://doi.org/10.1016/j.cell.2012.03.003). *Cell*, 2012; 149:22–35.
-4. Slamon DJ, Clark GM, Wong SG et al. [Human breast cancer: correlation of relapse and survival with amplification of the HER-2/neu oncogene](https://doi.org/10.1126/science.3798106). *Science*, 1987; 235:177–182.
-5. Zhao R, Choi BY, Lee MH et al. [Implications of genetic and epigenetic alterations of CDKN2A (p16INK4a) in cancer](https://doi.org/10.1016/j.ebiom.2016.04.017). *eBioMedicine*, 2016; 8:30–39.
-6. Fu Y, Jung AW, Torne RV et al. [Deep learning links histology, molecular signatures and prognosis in cancer](https://doi.org/10.1038/s43018-020-0099-2). *Nature Cancer*, 2020; 1:800–810.
+1. Beroukhim R, Mermel CH, Porter D et al. [The landscape of somatic copy-number alteration across human cancers](https://doi.org/10.1038/nature08822). *Nature*, 2010; 463:899-905.
+2. Steele CD, Abbasi A, Islam SMA et al. [Signatures of copy number alterations in human cancer](https://doi.org/10.1038/s41586-022-04738-6). *Nature*, 2022; 606:984-991.
+3. Dang CV. [MYC on the path to cancer](https://doi.org/10.1016/j.cell.2012.03.003). *Cell*, 2012; 149:22-35.
+4. Slamon DJ, Clark GM, Wong SG et al. [Human breast cancer: correlation of relapse and survival with amplification of the HER-2/neu oncogene](https://doi.org/10.1126/science.3798106). *Science*, 1987; 235:177-182.
+5. Zhao R, Choi BY, Lee MH et al. [Implications of genetic and epigenetic alterations of CDKN2A (p16INK4a) in cancer](https://doi.org/10.1016/j.ebiom.2016.04.017). *eBioMedicine*, 2016; 8:30-39.
+6. Fu Y, Jung AW, Torne RV et al. [Deep learning links histology, molecular signatures and prognosis in cancer](https://doi.org/10.1038/s43018-020-0099-2). *Nature Cancer*, 2020; 1:800-810.

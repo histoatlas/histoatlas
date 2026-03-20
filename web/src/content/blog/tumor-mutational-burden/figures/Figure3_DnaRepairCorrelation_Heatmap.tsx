@@ -153,7 +153,7 @@ export default function Figure3_DnaRepairCorrelation_Heatmap() {
       }}
     >
       <svg width={svgW} height={svgH} style={{ display: 'block', margin: '0 auto' }}>
-        {/* Column labels (cancer types) — horizontal, centered above each column */}
+        {/* Column labels (cancer types), horizontal, centered above each column */}
         {CANCER_TYPES.map((ct, i) => (
           <text
             key={ct}

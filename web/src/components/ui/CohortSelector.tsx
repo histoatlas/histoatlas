@@ -6,7 +6,7 @@ interface CohortSelectorProps {
   dataset?: string;
   /** Currently active cohort (from URL) */
   currentCohort: string;
-  /** Build the href for a given cohort — controls where the dropdown navigates */
+  /** Build the href for a given cohort. Controls where the dropdown navigates. */
   buildHref: (cohort: string) => string;
 }
 

@@ -92,24 +92,24 @@ export function ClinicalContext({ clinical, isLoading }: ClinicalContextProps) {
       </h2>
       <dl className="space-y-3 text-sm">
         <Field label="Age / Sex">
-          {ageSex || '—'}
+          {ageSex || '-'}
         </Field>
 
         <Field label="Stage">
-          {clinical.stage ? <StageBadge stage={clinical.stage} /> : '—'}
+          {clinical.stage ? <StageBadge stage={clinical.stage} /> : '-'}
         </Field>
 
         <Field label="Subtype">
-          {clinical.subtype ?? '—'}
+          {clinical.subtype ?? '-'}
         </Field>
 
         <Field label="Immune Subtype">
           {clinical.immuneSubtype ? (
             <span>
               <span className="font-medium">{clinical.immuneSubtype}</span>
-              {immuneLabel && <span className="text-zinc-500"> — {immuneLabel}</span>}
+              {immuneLabel && <span className="text-zinc-500"> ({immuneLabel})</span>}
             </span>
-          ) : '—'}
+          ) : '-'}
         </Field>
 
         {clinical.stage && (
@@ -122,7 +122,7 @@ export function ClinicalContext({ clinical, isLoading }: ClinicalContextProps) {
         )}
 
         <Field label="Overall Survival">
-          {survivalText ?? '—'}
+          {survivalText ?? '-'}
         </Field>
 
         <div className="flex justify-between items-start">

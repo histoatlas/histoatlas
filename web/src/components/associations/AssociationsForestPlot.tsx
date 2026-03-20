@@ -351,8 +351,8 @@ export const AssociationsForestPlot = forwardRef<SVGSVGElement, AssociationsFore
             <div className="font-medium">{featureDisplayName(tooltip.row.feature)}</div>
             <div className="mt-0.5 font-mono">
               {isLogScale
-                ? `HR: ${formatHR(tooltip.row.effect)} [${formatHR(tooltip.row.ciLower)} – ${formatHR(tooltip.row.ciUpper)}]`
-                : `${target === 'correlations' ? 'Spearman ρ' : "Cliff's δ"}: ${formatNum(tooltip.row.effect, 3)} [${formatNum(tooltip.row.ciLower, 3)} – ${formatNum(tooltip.row.ciUpper, 3)}]`}
+                ? `HR: ${formatHR(tooltip.row.effect)} [${formatHR(tooltip.row.ciLower)} - ${formatHR(tooltip.row.ciUpper)}]`
+                : `${target === 'correlations' ? 'Spearman ρ' : "Cliff's δ"}: ${formatNum(tooltip.row.effect, 3)} [${formatNum(tooltip.row.ciLower, 3)} - ${formatNum(tooltip.row.ciUpper, 3)}]`}
             </div>
             <div className="font-mono">p<sub>adj</sub>: {formatP(tooltip.row.pAdj)}</div>
             <div className="text-zinc-400">N = {tooltip.row.n}</div>

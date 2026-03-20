@@ -23,7 +23,7 @@ const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
 ---
 
 <BaseLayout
-  title={`${cohortFullName} Histomics — ${datasetDisplayName} · HistoAtlas`}
+  title={`${cohortFullName} Histomics - ${datasetDisplayName} · HistoAtlas`}
   description={`Browse all histomic features for the ${datasetDisplayName} ${cohortFullName} (${displayCohort}) cohort.`}
   canonicalUrl={`/${dataset}/${displayCohort}/histomics/`}
   breadcrumbs={[
@@ -33,7 +33,7 @@ const datasetDisplayName = dataset?.toUpperCase() ?? 'TCGA';
   ]}
 >
   <div class="min-h-screen bg-zinc-50">
-    <!-- White header zone (breadcrumbs only — title moved to React island) -->
+    <!-- White header zone (breadcrumbs only; title moved to React island) -->
     <div class="bg-white">
       <div class="max-w-7xl mx-auto px-6 pt-6">
         <Breadcrumbs items={[{ label: datasetDisplayName, href: `/${dataset}/PANCAN/atlas/` }, { label: cohortFullName, href: `/${dataset}/${displayCohort}/atlas/` }, { label: 'Histomics' }]} />

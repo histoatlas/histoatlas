@@ -250,7 +250,7 @@ export function HistomicsTable({ dataset = 'tcga', cohort = 'PANCAN' }: Histomic
                   {formatNum(f.quantiles.p50)}
                 </td>
                 <td className="px-4 py-2.5 text-right font-mono text-xs text-zinc-700">
-                  {formatNum(f.min)} – {formatNum(f.max)}
+                  {formatNum(f.min)} - {formatNum(f.max)}
                 </td>
               </tr>
             ))}

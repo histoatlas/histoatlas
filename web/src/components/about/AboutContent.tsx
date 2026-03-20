@@ -76,7 +76,7 @@ export function AboutContent() {
       </p>
 
       <div className="mt-6 flex items-center gap-3">
-        <span className="text-zinc-500 italic">— Pierre-Antoine Bannier</span>
+        <span className="text-zinc-500 italic">- Pierre-Antoine Bannier</span>
         <div className="flex items-center gap-2">
           <a
             href="https://www.linkedin.com/in/pierre-antoine-bannier/"

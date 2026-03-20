@@ -80,7 +80,7 @@ export const queryKeys = {
     ['histomics', dataset, 'treatment', feature, cancer] as const,
   histomicsCrossCancer: (dataset: string, feature: string, endpoint: string, model: string) =>
     ['histomics', dataset, 'cross-cancer', feature, endpoint, model] as const,
-  // Mutation pages (global — no dataset param)
+  // Mutation pages (global, no dataset param)
   mutationGenes: ['mutations', 'genes'] as const,
   mutationOverview: (gene: string) => ['mutations', 'overview', gene] as const,
   mutationIntersection: (gene: string, cancer: string) =>

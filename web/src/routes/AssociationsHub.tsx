@@ -131,7 +131,7 @@ export function AssociationsHub({ dataset = "tcga", cohort = "PANCAN" }: Associa
     modelParam,
   );
   // Overview query: show all correlations of that type when no feature is selected.
-  // Skip for "expression" — too many genes for a useful overview (EmptyState shown instead).
+  // Skip for "expression": too many genes for a useful overview (EmptyState shown instead).
   const correlationsQuery = useAssociationCorrelations(
     dataset,
     target === "molecular" && !hasFeatureSelected && molSubTab !== "mutations" && molSubTab !== "expression" ? cohort : null,

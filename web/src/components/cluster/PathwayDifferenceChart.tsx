@@ -85,7 +85,7 @@ export function PathwayDifferenceChart({ pathways }: PathwayDifferenceChartProps
         y={16}
         className="text-[11px] fill-zinc-700 font-semibold"
       >
-        {"Pathway Activity — Top 10 by |Cliff's δ|"}
+        {"Pathway Activity, Top 10 by |Cliff's δ|"}
       </text>
 
       <g transform={`translate(${margin.left}, ${margin.top})`}>

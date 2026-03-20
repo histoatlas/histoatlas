@@ -48,34 +48,22 @@ function RightSidebarSkeleton() {
   );
 }
 
-/** Compute the same data version hash as the server: sha256("{slides}:{features}:{clusters}")[:7] */
-function useDataVersions(cohorts: CohortEntry[] | undefined) {
-  const [versions, setVersions] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    if (!cohorts) return;
-
-    let cancelled = false;
-
-    async function computeAll() {
-      const result: Record<string, string> = {};
-      for (const c of cohorts!) {
-        const key = `${c.dataset}:${c.id}`;
-        const fingerprint = `${c.slideCount}:${c.featureCount}:${c.clusterCount}`;
-        const encoded = new TextEncoder().encode(fingerprint);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
-        result[key] = hex.slice(0, 7);
+/** Compute data version fingerprints synchronously (no effect, no setState, no render loop). */
+function useDataVersions(cohorts: CohortEntry[] | undefined): Record<string, string> {
+  return useMemo(() => {
+    if (!cohorts) return {};
+    const result: Record<string, string> = {};
+    for (const c of cohorts) {
+      const key = `${c.dataset}:${c.id}`;
+      const fingerprint = `${c.slideCount}:${c.featureCount}:${c.clusterCount}`;
+      let hash = 0;
+      for (let i = 0; i < fingerprint.length; i++) {
+        hash = ((hash << 5) - hash + fingerprint.charCodeAt(i)) | 0;
       }
-      if (!cancelled) setVersions(result);
+      result[key] = Math.abs(hash).toString(36).padStart(7, '0').slice(0, 7);
     }
-
-    computeAll();
-    return () => { cancelled = true; };
+    return result;
   }, [cohorts]);
-
-  return versions;
 }
 
 const MAX_VISIBLE_BADGES = 5;
@@ -122,7 +110,7 @@ function CohortCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            // Download action — placeholder for now
+            // Download action (placeholder for now)
           }}
         >
           <Icon name="download" size={14} />
@@ -182,10 +170,11 @@ function sortCohorts(types: CohortEntry[], sort: SortOption): CohortEntry[] {
 
 /** Merge cohort summaries from multiple datasets into a flat list. */
 function useAllCohorts(datasets: Dataset[] | undefined) {
-  // Dynamically fetch cohort summaries for every dataset in the registry.
-  // useQueries supports a variable-length array, avoiding the need to
-  // hardcode dataset IDs as separate hook calls.
-  const queries = useQueries({
+  // Use `combine` so TanStack Query applies `replaceEqualDeep` to the combined
+  // result, giving us a structurally-stable reference when query data hasn't
+  // changed. This prevents downstream useMemo/useEffect from re-firing on
+  // every render due to useQueries always returning a new array reference.
+  return useQueries({
     queries: (datasets ?? []).map((ds) => ({
       queryKey: ['cohorts', ds.id, 'summary'] as const,
       queryFn: async () => {
@@ -196,31 +185,25 @@ function useAllCohorts(datasets: Dataset[] | undefined) {
       staleTime: Infinity,
       gcTime: Infinity,
     })),
-  });
-
-  const isLoading = !datasets || queries.some((q) => q.isLoading);
-  const error = queries.find((q) => q.error)?.error ?? null;
-
-  const entries: CohortEntry[] | undefined = useMemo(() => {
-    if (!datasets) return undefined;
-
-    const result: CohortEntry[] = [];
-    for (let i = 0; i < datasets.length; i++) {
-      const ds = datasets[i];
-      const cohorts = queries[i]?.data;
-      if (!cohorts) continue;
-      for (const c of cohorts) {
-        result.push({
-          ...c,
-          dataset: ds.id,
-          datasetDisplayName: ds.displayName,
-        });
+    combine: (results) => {
+      const isLoading = !datasets || results.some((q) => q.isLoading);
+      const error = results.find((q) => q.error)?.error ?? null;
+      let entries: CohortEntry[] | undefined;
+      if (datasets) {
+        const flat: CohortEntry[] = [];
+        for (let i = 0; i < datasets.length; i++) {
+          const ds = datasets[i];
+          const cohorts = results[i]?.data;
+          if (!cohorts) continue;
+          for (const c of cohorts) {
+            flat.push({ ...c, dataset: ds.id, datasetDisplayName: ds.displayName });
+          }
+        }
+        entries = flat.length > 0 ? flat : undefined;
       }
-    }
-    return result.length > 0 ? result : undefined;
-  }, [datasets, queries]);
-
-  return { data: entries, isLoading, error };
+      return { data: entries, isLoading, error };
+    },
+  });
 }
 
 /** Sidebar filter item. */
@@ -499,7 +482,7 @@ export function CohortListing() {
               )}
             </div>
 
-            {/* Right sidebar — hidden on smaller viewports to prevent overlap */}
+            {/* Right sidebar, hidden on smaller viewports to prevent overlap */}
             <div className="hidden lg:block w-72 shrink-0">
               <div className="sticky top-5 space-y-4">
                 {isLoading ? (

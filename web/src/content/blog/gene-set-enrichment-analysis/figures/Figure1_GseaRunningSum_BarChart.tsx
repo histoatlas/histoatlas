@@ -199,7 +199,7 @@ export default function Figure1_GseaRunningSum() {
         <strong>Figure 1.</strong> The GSEA running-sum statistic. Walking down a ranked gene list, the
         score increases each time a gene set member is encountered (vertical bars) and decreases
         otherwise. The enrichment score (ES) is the peak deviation from zero. When gene set members
-        cluster near the top of the list, ES is large and positive — indicating the pathway is
+        cluster near the top of the list, ES is large and positive, indicating the pathway is
         upregulated in the phenotype of interest.
       </figcaption>
     </figure>

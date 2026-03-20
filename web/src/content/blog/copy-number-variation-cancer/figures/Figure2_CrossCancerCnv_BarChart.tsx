@@ -84,7 +84,7 @@ export default function Figure2_CrossCancerCnv_BarChart() {
               const v = value ?? 0;
               return [
                 `ρ = ${v > 0 ? '+' : ''}${v.toFixed(3)} (${entry.payload?.gene}, n=${entry.payload?.n})`,
-                'Top CNV–mitotic index',
+                'Top CNV-mitotic index',
               ];
             }}
           />
@@ -103,10 +103,10 @@ export default function Figure2_CrossCancerCnv_BarChart() {
           lineHeight: 1.5,
         }}
       >
-        <strong>Figure 2.</strong> Strongest CNV–mitotic index correlation per cancer type.
+        <strong>Figure 2.</strong> Strongest CNV-mitotic index correlation per cancer type.
         Each bar represents the gene whose copy number most strongly correlates with
-        mitotic index in that cancer type. The top gene varies across cancers — <em>CCNB1</em> in
-        breast and lung, <em>EGFR</em> in bladder, <em>SNAI1</em> in colon — revealing
+        mitotic index in that cancer type. The top gene varies across cancers: <em>CCNB1</em> in
+        breast and lung, <em>EGFR</em> in bladder, <em>SNAI1</em> in colon, revealing
         cancer-type-specific CNV-morphology relationships.
         <br />
         <span style={{ color: '#6B7280', fontSize: '0.8rem' }}>

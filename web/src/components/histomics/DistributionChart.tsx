@@ -386,7 +386,7 @@ export function DistributionChart({ values, cancerTypes, isPancan, featureLabel 
           }}
         >
           <div className="text-[11px] font-medium mb-0.5">
-            {hoveredData.x0.toPrecision(3)} – {hoveredData.x1.toPrecision(3)}
+            {hoveredData.x0.toPrecision(3)} - {hoveredData.x1.toPrecision(3)}
           </div>
           {isPancan ? (
             <div className="space-y-px">

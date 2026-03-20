@@ -111,12 +111,12 @@ export function DataTableBody({
 
                 {/* Cluster */}
                 <div className="flex-shrink-0 w-28 px-3 py-2">
-                  <span className="text-xs text-zinc-700">{slide.clusterId ?? '–'}</span>
+                  <span className="text-xs text-zinc-700">{slide.clusterId ?? '-'}</span>
                 </div>
 
                 {/* Immune Subtype */}
                 <div className="flex-shrink-0 w-36 px-3 py-2">
-                  <span className="text-xs text-zinc-700">{slide.immuneSubtype ?? '–'}</span>
+                  <span className="text-xs text-zinc-700">{slide.immuneSubtype ?? '-'}</span>
                 </div>
 
                 {/* Feature values */}
@@ -125,7 +125,7 @@ export function DataTableBody({
                   return (
                     <div key={featureName} className="flex-shrink-0 w-40 px-3 py-2">
                       <span className="text-xs text-zinc-500 font-mono tabular-nums">
-                        {value != null ? value.toFixed(2) : '–'}
+                        {value != null ? value.toFixed(2) : '-'}
                       </span>
                     </div>
                   );

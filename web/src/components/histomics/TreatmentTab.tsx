@@ -192,7 +192,7 @@ export function TreatmentTab({ dataset = 'tcga', feature, cancerType }: Treatmen
       >
         {/* Exploratory caveat */}
         <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800 mb-4">
-          Treatment associations are exploratory — associations do not imply causation.
+          Treatment associations are exploratory. Associations do not imply causation.
         </div>
 
         {/* Main table */}

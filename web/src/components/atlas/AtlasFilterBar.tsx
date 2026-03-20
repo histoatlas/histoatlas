@@ -302,7 +302,7 @@ export function AtlasFilterBar({
           </div>
         )}
 
-        {/* Search input — pushed right */}
+        {/* Search input, pushed right */}
         <div className="relative ml-auto">
           <Icon
             name="search"

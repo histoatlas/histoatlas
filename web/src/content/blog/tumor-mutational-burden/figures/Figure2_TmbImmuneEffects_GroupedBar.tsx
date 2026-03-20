@@ -113,7 +113,7 @@ export default function Figure2_TmbImmuneEffects_GroupedBar() {
       }}>
         <strong>Figure 2.</strong> Effect of high mutational burden on tumor morphology and immune
         infiltration (pan-cancer). Bars show Cliff's delta comparing <em>TTN</em>-mutant versus
-        wild-type tumors — a validated proxy for TMB-high status [2]. Mitotic index shows the
+        wild-type tumors, a validated proxy for TMB-high status [2]. Mitotic index shows the
         largest effect (d = 0.316), followed by multiple immune infiltration metrics. All
         associations BH-significant (p<sub>adj</sub> &lt; 10<sup>-10</sup>).
         <br />

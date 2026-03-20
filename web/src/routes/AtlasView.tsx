@@ -174,7 +174,7 @@ function AtlasViewContent({ dataset = 'tcga', cohort = 'PANCAN' }: AtlasViewProp
   if (isLoading) {
     return (
       <div className="min-h-screen bg-zinc-50">
-        {/* Content skeleton — two-column layout */}
+        {/* Content skeleton: two-column layout */}
         <div className="max-w-7xl mx-auto px-6 pt-5 pb-16">
           <div className="flex gap-8">
             {/* Main column */}
@@ -321,7 +321,7 @@ function AtlasViewContent({ dataset = 'tcga', cohort = 'PANCAN' }: AtlasViewProp
         tabNavSlot,
       )}
 
-      {/* Content zone — two-column layout */}
+      {/* Content zone: two-column layout */}
       <div className="max-w-7xl mx-auto px-6 pt-5 pb-16">
         <div className="flex gap-8">
           {/* Main column */}

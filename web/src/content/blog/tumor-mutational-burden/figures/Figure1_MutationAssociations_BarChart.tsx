@@ -47,7 +47,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
     }}>
       <div style={{ fontWeight: 600, color: C.dark }}>{d.full_name}</div>
       <div style={{ color: '#6B7280' }}>
-        {d.count} significant mutation–morphology associations
+        {d.count} significant mutation-morphology associations
       </div>
     </div>
   );
@@ -95,9 +95,9 @@ export default function Figure1_MutationAssociations_BarChart() {
         color: C.dark,
         lineHeight: 1.5,
       }}>
-        <strong>Figure 1.</strong> Number of statistically significant mutation–morphology associations
-        per cancer type. Colorectal (COAD), stomach (STAD), and uterine (UCEC) cancers — known
-        for high mutational burden and microsatellite instability — show the most mutation-driven
+        <strong>Figure 1.</strong> Number of statistically significant mutation-morphology associations
+        per cancer type. Colorectal (COAD), stomach (STAD), and uterine (UCEC) cancers, known
+        for high mutational burden and microsatellite instability, show the most mutation-driven
         morphological variation. Dashed line at 50 highlights the sharp drop-off after the top four.
         <br />
         <span style={{ color: '#6B7280', fontSize: '0.8rem' }}>

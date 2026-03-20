@@ -322,7 +322,7 @@ export function ClusterKMPlot({
 }
 
 // ---------------------------------------------------------------------------
-// KM Curve (SVG) — internals unchanged from rigor pass
+// KM Curve (SVG), internals unchanged from rigor pass
 // ---------------------------------------------------------------------------
 
 interface KMCurveProps {
@@ -469,11 +469,11 @@ function KMCurve({ survivalData, clusterColor, clusterId, endpointLabel }: KMCur
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         role="img"
-        aria-label={`Kaplan-Meier survival curve for cancer morphology cluster ${clusterId ?? '?'}, ${endpointLabel ?? 'survival'}: ${survivalData.stats.hazardRatio != null ? `hazard ratio ${formatHR(survivalData.stats.hazardRatio)} (95% CI ${formatHR(survivalData.stats.hrCiLower)}–${formatHR(survivalData.stats.hrCiUpper)}), p = ${formatP(survivalData.stats.coxPAdj)}` : ''}, ${survivalData.curves.reduce((s, c) => s + c.nSamples, 0)} samples`}
+        aria-label={`Kaplan-Meier survival curve for cancer morphology cluster ${clusterId ?? '?'}, ${endpointLabel ?? 'survival'}: ${survivalData.stats.hazardRatio != null ? `hazard ratio ${formatHR(survivalData.stats.hazardRatio)} (95% CI ${formatHR(survivalData.stats.hrCiLower)}-${formatHR(survivalData.stats.hrCiUpper)}), p = ${formatP(survivalData.stats.coxPAdj)}` : ''}, ${survivalData.curves.reduce((s, c) => s + c.nSamples, 0)} samples`}
       >
         {/* Chart title */}
         <text x={margin.left} y={14} className="text-[11px] fill-zinc-700 font-semibold">
-          Kaplan-Meier — Log-rank + Cox PH (two-sided)
+          Kaplan-Meier, Log-rank + Cox PH (two-sided)
         </text>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           {/* Y gridlines */}
@@ -693,7 +693,7 @@ function KMCurve({ survivalData, clusterColor, clusterId, endpointLabel }: KMCur
                     S = {cd.prob.toFixed(3)}
                     {cd.ciLo != null && cd.ciHi != null && (
                       <span className="text-zinc-400 ml-1">
-                        (95% CI: {cd.ciLo.toFixed(3)}–{cd.ciHi.toFixed(3)})
+                        (95% CI: {cd.ciLo.toFixed(3)}-{cd.ciHi.toFixed(3)})
                       </span>
                     )}
                   </span>
@@ -756,7 +756,7 @@ function KMCurve({ survivalData, clusterColor, clusterId, endpointLabel }: KMCur
                     const count = getAtRiskCount(curve.timePoints, curve.survivalProbs, curve.nSamples, t, maxTime);
                     return (
                       <td key={t} className="text-center font-mono px-1.5 py-0.5">
-                        {count != null ? count : '—'}
+                        {count != null ? count : '-'}
                       </td>
                     );
                   })}
