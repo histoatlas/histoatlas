@@ -93,6 +93,12 @@ export function DownloadDialog({
     a.click();
     URL.revokeObjectURL(url);
 
+    window.posthog?.capture('data_downloaded', {
+      scope,
+      columns,
+      row_count: slidesToExport.length,
+    });
+
     onClose();
   }, [scope, columns, filteredSlides, selectedSlideIds, featureNames, hasSelection, onClose]);
 

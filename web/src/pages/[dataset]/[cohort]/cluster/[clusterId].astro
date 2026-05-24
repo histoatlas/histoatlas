@@ -73,3 +73,7 @@ const decodedId = clusterId ? decodeURIComponent(clusterId) : '';
     <ClusterPageIsland dataset={dataset} clusterId={decodedId} cohort={displayCohort} client:only="react" />
   </div>
 </BaseLayout>
+
+<script is:inline define:vars={{ dataset, cohort: displayCohort, clusterId: decodedId }}>
+  window.posthog?.capture('cluster_viewed', { dataset, cohort, cluster_id: clusterId });
+</script>

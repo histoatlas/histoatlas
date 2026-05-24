@@ -161,7 +161,14 @@ export function SearchPalette({ search }: SearchPaletteProps) {
                       <button
                         key={result.id}
                         data-active={isActive}
-                        onClick={() => selectResult(result)}
+                        onClick={() => {
+                          window.posthog?.capture('search_result_selected', {
+                            result_type: result.type,
+                            result_label: result.label,
+                            query,
+                          });
+                          selectResult(result);
+                        }}
                         onMouseEnter={() => setActiveIndex(flatIdx)}
                         className={`w-full px-4 py-2 flex items-center gap-3 text-left transition-colors ${
                           isActive ? 'bg-zinc-800' : 'hover:bg-zinc-800/50'

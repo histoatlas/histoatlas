@@ -20,3 +20,7 @@ const { Content } = await post.render();
 <BlogPost {...post.data} slug={slug}>
   <Content />
 </BlogPost>
+
+<script is:inline define:vars={{ slug, title: post.data.title }}>
+  window.posthog?.capture('blog_post_viewed', { slug, title });
+</script>
