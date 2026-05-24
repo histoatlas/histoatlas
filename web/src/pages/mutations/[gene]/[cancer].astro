@@ -169,3 +169,12 @@ const jsonLd: Record<string, unknown>[] = [
     </div>
   </div>
 </BaseLayout>
+
+<script is:inline define:vars={{ geneSlug, cancerSlug, geneSymbol: geneEntry.symbol, cancerFullName }}>
+  window.posthog?.capture('mutation_page_viewed', {
+    gene: geneSlug,
+    gene_symbol: geneSymbol,
+    cancer: cancerSlug,
+    cancer_full_name: cancerFullName,
+  });
+</script>

@@ -98,3 +98,7 @@ const tier1Features = Object.keys(TIER1_SEO_CONTENT)
     <AtlasPageIsland dataset={dataset} cohort={displayCohort} client:only="react" />
   </div>
 </BaseLayout>
+
+<script is:inline define:vars={{ dataset, cohort: displayCohort }}>
+  window.posthog?.capture('cohort_atlas_viewed', { dataset, cohort });
+</script>

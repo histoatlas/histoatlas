@@ -99,3 +99,7 @@ const slideJsonLd: Record<string, unknown>[] = [
     <SlidePageIsland dataset={dataset} slideId={decodedId} cohort={displayCohort} client:only="react" />
   </div>
 </BaseLayout>
+
+<script is:inline define:vars={{ dataset, cohort: displayCohort, slideId: decodedId, cancerType }}>
+  window.posthog?.capture('slide_viewed', { dataset, cohort, slide_id: slideId, cancer_type: cancerType });
+</script>

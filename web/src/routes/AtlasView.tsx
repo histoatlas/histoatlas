@@ -128,6 +128,12 @@ function AtlasViewContent({ dataset = 'tcga', cohort = 'PANCAN' }: AtlasViewProp
   const handleSlideClick = useCallback(
     (slideId: string) => {
       const slideCancerType = cancerTypeById.get(slideId) ?? cohort;
+      window.posthog?.capture('slide_clicked', {
+        slide_id: slideId,
+        cancer_type: slideCancerType,
+        dataset,
+        cohort,
+      });
       window.location.href = `/${dataset}/${slideCancerType}/slide/${slideId}/`;
     },
     [dataset, cohort, cancerTypeById]
@@ -345,7 +351,14 @@ function AtlasViewContent({ dataset = 'tcga', cohort = 'PANCAN' }: AtlasViewProp
                 <span className="text-xs text-zinc-400 font-mono">
                   {data.dataVersion}{relativeTime && ` · ${relativeTime}`}
                 </span>
-                <BottomControls colorBy={colorBy} onColorByChange={setColorBy} options={colorByOptions} />
+                <BottomControls
+                  colorBy={colorBy}
+                  onColorByChange={(value) => {
+                    window.posthog?.capture('color_by_changed', { color_by: value, dataset, cohort });
+                    setColorBy(value);
+                  }}
+                  options={colorByOptions}
+                />
               </div>
 
               {/* UMAP Plot */}

@@ -37,18 +37,29 @@ export function CancerTypeSelect({
   const noneSelected = selectedTypes.length === 0;
 
   const handleToggle = (type: string) => {
-    if (selectedSet.has(type)) {
-      onChange(selectedTypes.filter((t) => t !== type));
-    } else {
-      onChange([...selectedTypes, type]);
-    }
+    const next = selectedSet.has(type)
+      ? selectedTypes.filter((t) => t !== type)
+      : [...selectedTypes, type];
+    window.posthog?.capture('atlas_filter_applied', {
+      filter_type: 'cancer_type',
+      selected_count: next.length,
+    });
+    onChange(next);
   };
 
   const handleSelectAll = () => {
+    window.posthog?.capture('atlas_filter_applied', {
+      filter_type: 'cancer_type',
+      selected_count: allTypes.length,
+    });
     onChange([...allTypes]);
   };
 
   const handleClearAll = () => {
+    window.posthog?.capture('atlas_filter_applied', {
+      filter_type: 'cancer_type',
+      selected_count: 0,
+    });
     onChange([]);
   };
 
